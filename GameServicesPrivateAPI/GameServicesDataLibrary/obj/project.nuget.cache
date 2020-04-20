@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "s9ON8pbOXbglOneq0z8tOVlxhDjy9jtlERnrhilpw0aMGXJdIJ3vGHQRGlNBlYMvcoIzI5i/ggN0jDVXXNy0fg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\b2hin\\Documents\\GitRepos\\GameServicesPrivateAPI\\GameServicesPrivateAPI\\GameServicesDataLibrary\\GameServicesDataLibrary.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\b2hin\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\b2hin\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
