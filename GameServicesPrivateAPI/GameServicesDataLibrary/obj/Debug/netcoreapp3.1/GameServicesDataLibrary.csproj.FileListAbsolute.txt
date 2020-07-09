@@ -1,9 +1,0 @@
-C:\Users\b2hin\Documents\GitRepos\GameServicesPrivateAPI\GameServicesPrivateAPI\GameServicesDataLibrary\bin\Debug\netcoreapp3.1\GameServicesDataLibrary.deps.json
-C:\Users\b2hin\Documents\GitRepos\GameServicesPrivateAPI\GameServicesPrivateAPI\GameServicesDataLibrary\bin\Debug\netcoreapp3.1\GameServicesDataLibrary.dll
-C:\Users\b2hin\Documents\GitRepos\GameServicesPrivateAPI\GameServicesPrivateAPI\GameServicesDataLibrary\bin\Debug\netcoreapp3.1\GameServicesDataLibrary.pdb
-C:\Users\b2hin\Documents\GitRepos\GameServicesPrivateAPI\GameServicesPrivateAPI\GameServicesDataLibrary\obj\Debug\netcoreapp3.1\GameServicesDataLibrary.csprojAssemblyReference.cache
-C:\Users\b2hin\Documents\GitRepos\GameServicesPrivateAPI\GameServicesPrivateAPI\GameServicesDataLibrary\obj\Debug\netcoreapp3.1\GameServicesDataLibrary.csproj.CoreCompileInputs.cache
-C:\Users\b2hin\Documents\GitRepos\GameServicesPrivateAPI\GameServicesPrivateAPI\GameServicesDataLibrary\obj\Debug\netcoreapp3.1\GameServicesDataLibrary.AssemblyInfoInputs.cache
-C:\Users\b2hin\Documents\GitRepos\GameServicesPrivateAPI\GameServicesPrivateAPI\GameServicesDataLibrary\obj\Debug\netcoreapp3.1\GameServicesDataLibrary.AssemblyInfo.cs
-C:\Users\b2hin\Documents\GitRepos\GameServicesPrivateAPI\GameServicesPrivateAPI\GameServicesDataLibrary\obj\Debug\netcoreapp3.1\GameServicesDataLibrary.dll
-C:\Users\b2hin\Documents\GitRepos\GameServicesPrivateAPI\GameServicesPrivateAPI\GameServicesDataLibrary\obj\Debug\netcoreapp3.1\GameServicesDataLibrary.pdb
