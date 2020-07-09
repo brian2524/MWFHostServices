@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GameServicesDataLibrary.Models
 {
-    class GameInstanceModel
+    public class GameInstanceModel
     {
         public int Id { get; set; }
         public string Game { get; set; }
