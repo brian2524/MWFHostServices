@@ -1,2 +1,2 @@
 # MultiplayerCentralServices
-Central API for game services (database interaction and Host access for cluster handling)
+Central API for multiplayer services (database interaction and Host access for cluster handling)
