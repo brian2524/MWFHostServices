@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiplayerFrameworkModelsL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiplayerFrameworkDataLibrary", "MultiplayerFrameworkDataLibrary\MultiplayerFrameworkDataLibrary.csproj", "{1A6B9B39-01FC-4C22-BA8B-6B86ECA6B1F5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseServicesAPIFunctionApp", "DatabaseServicesAPIFunctionApp\DatabaseServicesAPIFunctionApp.csproj", "{09C69E1A-F33E-40CD-8397-3460BA286441}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{1A6B9B39-01FC-4C22-BA8B-6B86ECA6B1F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A6B9B39-01FC-4C22-BA8B-6B86ECA6B1F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A6B9B39-01FC-4C22-BA8B-6B86ECA6B1F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09C69E1A-F33E-40CD-8397-3460BA286441}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09C69E1A-F33E-40CD-8397-3460BA286441}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09C69E1A-F33E-40CD-8397-3460BA286441}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09C69E1A-F33E-40CD-8397-3460BA286441}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
