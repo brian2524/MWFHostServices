@@ -21,12 +21,12 @@ namespace DatabaseServicesAPIFunctionApp
 
             string name = req.Query["name"];
 
-                //  Old way that came with this function (NewtonSoft.Json)
+            //  Old way that came with this function (NewtonSoft.Json)
             /*string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             dynamic data = JsonConvert.DeserializeObject(requestBody);
             name = name ?? data?.name;*/
 
-                //  New way we made (System.Text.Json)
+            //  New way since NewtonSoft.Json is outdated. Implemented using (System.Text.Json)
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             JsonElement jsonBody = (JsonElement)(JsonSerializer.Deserialize<Object>(requestBody));
 
