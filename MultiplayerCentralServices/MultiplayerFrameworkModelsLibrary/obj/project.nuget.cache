@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "+JAY+lopVmUbVEDxwLfxMBdV6gReQzL+74i0rWgIkr8/Ez32K2HgZCiPGjxveK5o6wiN5Y4bLexVTTdabr4O/A==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\b2hin\\Documents\\GitRepos\\MultiplayerCentralServices\\MultiplayerCentralServices\\MultiplayerFrameworkModelsLibrary\\MultiplayerFrameworkModelsLibrary.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\b2hin\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\b2hin\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
