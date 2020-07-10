@@ -6,14 +6,14 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace DatabaseServicesAPIFunctionApp
 {
-    public static class Function1
+    public static class SampleController
     {
-        [FunctionName("Function1")]
-        public static async Task<IActionResult> Run(
+        [FunctionName("SampleEndpoint")]
+        public static async Task<IActionResult> SampleEndpoint(
             [HttpTrigger(AuthorizationLevel.Admin, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
@@ -21,9 +21,16 @@ namespace DatabaseServicesAPIFunctionApp
 
             string name = req.Query["name"];
 
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+                //  Old way that came with this function (NewtonSoft.Json)
+            /*string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             dynamic data = JsonConvert.DeserializeObject(requestBody);
-            name = name ?? data?.name;
+            name = name ?? data?.name;*/
+
+                //  New way we made (System.Text.Json)
+            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            JsonElement jsonBody = (JsonElement)(JsonSerializer.Deserialize<Object>(requestBody));
+
+            name = name ?? jsonBody.GetProperty("name").ToString();
 
             string responseMessage = string.IsNullOrEmpty(name)
                 ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
