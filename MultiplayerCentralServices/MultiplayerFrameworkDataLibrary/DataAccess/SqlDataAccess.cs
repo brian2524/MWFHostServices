@@ -10,11 +10,11 @@ namespace MultiplayerFrameworkDataLibrary.DataAccess
 {
     public static class SqlDataAccess
     {
-        public static List<T> LoadData<T>(string connString, string sql)
+        public static IEnumerable<T> LoadData<T>(string connString, string sql)
         {
             using (IDbConnection cnn = new SqlConnection(connString))
             {
-                return cnn.Query<T>(sql).ToList();
+                return cnn.Query<T>(sql);
             }
         }
 
@@ -26,11 +26,11 @@ namespace MultiplayerFrameworkDataLibrary.DataAccess
             }
         }
 
-        public static List<T> ExecuteProcedure<T>(string connectionString, string procedureName, object ProcedureParameters)
+        public static IEnumerable<T> ExecuteProcedure<T>(string connectionString, string procedureName, object ProcedureParameters)    //  Use this for most/hopefully all operations
         {
-            using (IDbConnection connection = new SqlConnection(connectionString))
+            using (IDbConnection cnn = new SqlConnection(connectionString))
             {
-                return connection.Query<T>(procedureName, ProcedureParameters, commandType: CommandType.StoredProcedure).ToList();
+                return cnn.Query<T>(procedureName, ProcedureParameters, commandType: CommandType.StoredProcedure);
             }
         }
 

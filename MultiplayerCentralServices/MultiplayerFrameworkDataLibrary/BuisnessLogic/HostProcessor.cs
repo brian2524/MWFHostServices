@@ -29,7 +29,7 @@ namespace MultiplayerFrameworkDataLibrary.BuisnessLogic
             return SqlDataAccess.ModifyDatabase(sql, connString, new { ServerIP = serverIP });
         }
 
-        public static List<HostModel> LoadServers(string connString)
+        public static IEnumerable<HostModel> LoadServers(string connString)
         {
             string sql = @"select * from dbo.ServerTable;";
             return SqlDataAccess.LoadData<HostModel>(sql, connString);

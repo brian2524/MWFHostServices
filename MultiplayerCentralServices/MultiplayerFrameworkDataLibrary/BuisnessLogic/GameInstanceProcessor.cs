@@ -28,7 +28,7 @@ namespace MultiplayerFrameworkDataLibrary.BuisnessLogic
             return SqlDataAccess.ModifyDatabase(sql, connString, new { Id = id });
         }
 
-        public static List<GameInstanceModel> LoadGameInstances(string connString)
+        public static IEnumerable<GameInstanceModel> LoadGameInstances(string connString)
         {
             string sql = @"select * from dbo.GameInstanceTable;";
             return SqlDataAccess.LoadData<GameInstanceModel>(sql, connString);
