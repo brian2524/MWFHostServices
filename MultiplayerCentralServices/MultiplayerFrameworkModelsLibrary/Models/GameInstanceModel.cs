@@ -10,7 +10,7 @@ namespace MultiplayerFrameworkModelsLibrary.Models
         None,
         NinjaGame
     }
-    class GameInstanceModel
+    public class GameInstanceModel
     {
         public int Id { get; set; }
         public Game Game { get; set; }

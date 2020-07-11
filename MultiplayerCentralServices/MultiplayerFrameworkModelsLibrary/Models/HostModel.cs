@@ -6,7 +6,7 @@ namespace MultiplayerFrameworkModelsLibrary.Models
 {
     /*A Host should have 2 Ip addresses, one reserved for the GameInstances to listen on for players (HostIp),
       and another for the HostServicesApi to listen on (AssociatedHostServicesApiIp). This way, players don't get access to the Api.*/
-    class HostModel
+    public class HostModel
     {
         public int Id { get; set; }
         public string HostIp { get; set; }
