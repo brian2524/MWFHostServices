@@ -20,13 +20,13 @@ namespace MultiplayerFrameworkDataLibrary.BuisnessLogic
 
             string sql = @"insert into dbo.ServerTable (ServerIP, GameInstancesManagementApiIp, GameInstancesManagementApiPort, IsActive)
                          values (@ServerIP, @GameInstancesManagementApiIp, @GameInstancesManagementApiPort, @IsActive);";
-            return SqlDataAccess.ModifyDatabase(sql, data, connString);
+            return SqlDataAccess.ModifyDatabase(connString, sql, data);
         }
 
         public static int RemoveServer(string serverIP, string connString)
         {
             string sql = @"DELETE FROM dbo.ServerTable WHERE ServerIP=@ServerIP;";
-            return SqlDataAccess.ModifyDatabase(sql, new { ServerIP = serverIP }, connString);
+            return SqlDataAccess.ModifyDatabase(sql, connString, new { ServerIP = serverIP });
         }
 
         public static List<HostModel> LoadServers(string connString)

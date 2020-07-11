@@ -19,13 +19,13 @@ namespace MultiplayerFrameworkDataLibrary.BuisnessLogic
 
             string sql = @"insert into dbo.GameInstanceTable (Game, Args, AssociatedServer)
                          values (@Game, @Args, @AssociatedServer);";
-            return SqlDataAccess.ModifyDatabase(sql, data, connString);
+            return SqlDataAccess.ModifyDatabase(connString, sql, data);
         }
 
         public static int RemoveGameInstance(int id, string connString)
         {
             string sql = @"DELETE FROM dbo.GameInstanceTable WHERE Id=@Id;";
-            return SqlDataAccess.ModifyDatabase(sql, new { Id = id }, connString);
+            return SqlDataAccess.ModifyDatabase(sql, connString, new { Id = id });
         }
 
         public static List<GameInstanceModel> LoadGameInstances(string connString)
