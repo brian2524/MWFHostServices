@@ -10,7 +10,7 @@ namespace MultiplayerFrameworkDataLibrary.BuisnessLogic
     {
         public static int CreateServer(string serverIP, string gameInstancesManagementApiIp, string gameInstancesManagementApiPort, bool isActive, string connString)
         {
-            var data = new
+            var parameters = new
             {
                 ServerIP = serverIP,
                 GameInstancesManagementApiIp = gameInstancesManagementApiIp,
@@ -18,21 +18,30 @@ namespace MultiplayerFrameworkDataLibrary.BuisnessLogic
                 IsActive = isActive
             };
 
-            string sql = @"insert into dbo.ServerTable (ServerIP, GameInstancesManagementApiIp, GameInstancesManagementApiPort, IsActive)
+            //  Old way (not using stored procedures and using older function that took in a string sql)
+            /*string sql = @"insert into dbo.ServerTable (ServerIP, GameInstancesManagementApiIp, GameInstancesManagementApiPort, IsActive)
                          values (@ServerIP, @GameInstancesManagementApiIp, @GameInstancesManagementApiPort, @IsActive);";
-            return SqlDataAccess.ModifyDatabase(connString, sql, data);
+            return SqlDataAccess.ModifyDatabase(connString, sql, parameters);*/
+
+            throw new NotImplementedException();
         }
 
         public static int RemoveServer(string serverIP, string connString)
         {
-            string sql = @"DELETE FROM dbo.ServerTable WHERE ServerIP=@ServerIP;";
-            return SqlDataAccess.ModifyDatabase(sql, connString, new { ServerIP = serverIP });
+            //  Old way (not using stored procedures and using older function that took in a string sql)
+            /*string sql = @"DELETE FROM dbo.ServerTable WHERE ServerIP=@ServerIP;";
+            return SqlDataAccess.ModifyDatabase(sql, connString, new { ServerIP = serverIP });*/
+
+            throw new NotImplementedException();
         }
 
         public static IEnumerable<HostModel> LoadServers(string connString)
         {
-            string sql = @"select * from dbo.ServerTable;";
-            return SqlDataAccess.LoadData<HostModel>(sql, connString);
+            //  Old way (not using stored procedures and using older function that took in a string sql)
+            /*string sql = @"select * from dbo.ServerTable;";
+            return SqlDataAccess.LoadData<HostModel>(sql, connString);*/
+
+            throw new NotImplementedException();
         }
     }
 }
