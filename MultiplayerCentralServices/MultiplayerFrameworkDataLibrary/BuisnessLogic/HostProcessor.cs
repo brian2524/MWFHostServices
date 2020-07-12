@@ -8,7 +8,7 @@ namespace MultiplayerFrameworkDataLibrary.BuisnessLogic
 {
     class HostProcessor
     {
-        public static int CreateServer(string serverIP, string gameInstancesManagementApiIp, string gameInstancesManagementApiPort, bool isActive, string connString)
+        public static int CreateHosts(string serverIP, string gameInstancesManagementApiIp, string gameInstancesManagementApiPort, bool isActive, string connString)
         {
             var parameters = new
             {
@@ -26,7 +26,7 @@ namespace MultiplayerFrameworkDataLibrary.BuisnessLogic
             throw new NotImplementedException();
         }
 
-        public static int RemoveServer(string serverIP, string connString)
+        public static int RemoveHost(string serverIP, string connString)
         {
             //  Old way (not using stored procedures and using older function that took in a string sql)
             /*string sql = @"DELETE FROM dbo.ServerTable WHERE ServerIP=@ServerIP;";
@@ -35,7 +35,7 @@ namespace MultiplayerFrameworkDataLibrary.BuisnessLogic
             throw new NotImplementedException();
         }
 
-        public static IEnumerable<HostModel> LoadServers(string connString)
+        public static IEnumerable<HostModel> LoadHosts(string connString)
         {
             //  Old way (not using stored procedures and using older function that took in a string sql)
             /*string sql = @"select * from dbo.ServerTable;";
