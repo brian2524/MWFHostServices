@@ -6,6 +6,11 @@ using Dapper;
 using System.Data;
 using Microsoft.Data.SqlClient;
 
+/*  Dapper functions notes
+         *  Query: Use when loading data since you will probably want the rows returned to you
+         *  QueryMultiple: Used for when you need multiple result sets. Returns a GridReader and can be used to return the result of multiple Select statements, using a concept of MARS (Multiple active result set).
+         *  Execute: Used for executing the DML statements (like Insert, Update and Delete) whose purpose is to make changes to the data in the database. The return type is an integer.*/
+
 namespace MultiplayerFrameworkDataLibrary.DataAccess
 {
     //  Make sure to not call Load/Modify Data within a loop. This will open and close a IDbConnection every call which is expensive.
@@ -57,25 +62,5 @@ namespace MultiplayerFrameworkDataLibrary.DataAccess
                 cnn.Execute(storedProcedureName, parameters, commandType: CommandType.StoredProcedure);
             }
         }
-
-
-
-
-
-
-
-        /*  When to use what for procedures
-         *  Query: Use when loading data since you will probably want the rows returned to you
-         *  QueryMultiple: Used for when you need multiple result sets. Returns a GridReader and can be used to return the result of multiple Select statements, using a concept of MARS (Multiple active result set).
-         *  Execute: Used for executing the DML statements (like Insert, Update and Delete) whose purpose is to make changes to the data in the database. The return type is an integer.
-         */
-        public static IEnumerable<T> ExecuteProcedure<T>(string connectionString, string storedProcedureName, object ProcedureParameters)    //  Use this for most/hopefully all operations
-        {
-            using (IDbConnection cnn = new SqlConnection(connectionString))
-            {
-                return cnn.Query<T>(storedProcedureName, ProcedureParameters, commandType: CommandType.StoredProcedure);
-            }
-        }
-
     }
 }
