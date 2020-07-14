@@ -1,15 +1,11 @@
-﻿using System;
+﻿using MultiplayerFrameworkModelsLibrary.Enums;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 
 namespace MultiplayerFrameworkModelsLibrary.Models
 {
-    public enum Game
-    {
-        None,
-        NinjaGame
-    }
     public class GameInstanceModel
     {
         public int Id { get; set; }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\b2hin\\Documents\\GitRepos\\MultiplayerCentralServices\\MultiplayerCentralServices\\MultiplayerFrameworkModelsLibrary\\MultiplayerFrameworkModelsLibrary.csproj": {}
+    "C:\\Users\\b2hin\\Desktop\\SVN\\MultiplayerFramework\\MultiplayerCentralServices\\MultiplayerFrameworkModelsLibrary\\MultiplayerFrameworkModelsLibrary.csproj": {}
   },
   "projects": {
-    "C:\\Users\\b2hin\\Documents\\GitRepos\\MultiplayerCentralServices\\MultiplayerCentralServices\\MultiplayerFrameworkModelsLibrary\\MultiplayerFrameworkModelsLibrary.csproj": {
+    "C:\\Users\\b2hin\\Desktop\\SVN\\MultiplayerFramework\\MultiplayerCentralServices\\MultiplayerFrameworkModelsLibrary\\MultiplayerFrameworkModelsLibrary.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\b2hin\\Documents\\GitRepos\\MultiplayerCentralServices\\MultiplayerCentralServices\\MultiplayerFrameworkModelsLibrary\\MultiplayerFrameworkModelsLibrary.csproj",
+        "projectUniqueName": "C:\\Users\\b2hin\\Desktop\\SVN\\MultiplayerFramework\\MultiplayerCentralServices\\MultiplayerFrameworkModelsLibrary\\MultiplayerFrameworkModelsLibrary.csproj",
         "projectName": "MultiplayerFrameworkModelsLibrary",
-        "projectPath": "C:\\Users\\b2hin\\Documents\\GitRepos\\MultiplayerCentralServices\\MultiplayerCentralServices\\MultiplayerFrameworkModelsLibrary\\MultiplayerFrameworkModelsLibrary.csproj",
+        "projectPath": "C:\\Users\\b2hin\\Desktop\\SVN\\MultiplayerFramework\\MultiplayerCentralServices\\MultiplayerFrameworkModelsLibrary\\MultiplayerFrameworkModelsLibrary.csproj",
         "packagesPath": "C:\\Users\\b2hin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\b2hin\\Documents\\GitRepos\\MultiplayerCentralServices\\MultiplayerCentralServices\\MultiplayerFrameworkModelsLibrary\\obj\\",
+        "outputPath": "C:\\Users\\b2hin\\Desktop\\SVN\\MultiplayerFramework\\MultiplayerCentralServices\\MultiplayerFrameworkModelsLibrary\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "FeLykZwVz7qUEGgC60dgLoHooBQc4gJgzs6x1Xm6UERs1cBsZtXP/vEhmNHTc9QvEu4T0AYj16pjOhRQEEbc0w==",
+  "dgSpecHash": "Gfq7TU+il1zrDqz3KFkOUnw0f2EyNIVcZr9j11Robh9huKfFnlOOh2MwRWvGqfYglyJct9qA04swkonDAYMHSA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\b2hin\\Documents\\GitRepos\\MultiplayerCentralServices\\MultiplayerCentralServices\\MultiplayerFrameworkModelsLibrary\\MultiplayerFrameworkModelsLibrary.csproj",
+  "projectFilePath": "C:\\Users\\b2hin\\Desktop\\SVN\\MultiplayerFramework\\MultiplayerCentralServices\\MultiplayerFrameworkModelsLibrary\\MultiplayerFrameworkModelsLibrary.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\b2hin\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.0\\microsoft.bcl.asyncinterfaces.1.1.0.nupkg.sha512",
     "C:\\Users\\b2hin\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",

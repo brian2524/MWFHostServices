@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\b2hin\\Documents\\GitRepos\\MultiplayerCentralServices\\MultiplayerCentralServices\\MultiplayerFrameworkDataLibrary\\MultiplayerFrameworkDataLibrary.csproj": {}
+    "C:\\Users\\b2hin\\Desktop\\SVN\\MultiplayerFramework\\MultiplayerCentralServices\\MultiplayerFrameworkDataLibrary\\MultiplayerFrameworkDataLibrary.csproj": {}
   },
   "projects": {
-    "C:\\Users\\b2hin\\Documents\\GitRepos\\MultiplayerCentralServices\\MultiplayerCentralServices\\MultiplayerFrameworkDataLibrary\\MultiplayerFrameworkDataLibrary.csproj": {
+    "C:\\Users\\b2hin\\Desktop\\SVN\\MultiplayerFramework\\MultiplayerCentralServices\\MultiplayerFrameworkDataLibrary\\MultiplayerFrameworkDataLibrary.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\b2hin\\Documents\\GitRepos\\MultiplayerCentralServices\\MultiplayerCentralServices\\MultiplayerFrameworkDataLibrary\\MultiplayerFrameworkDataLibrary.csproj",
+        "projectUniqueName": "C:\\Users\\b2hin\\Desktop\\SVN\\MultiplayerFramework\\MultiplayerCentralServices\\MultiplayerFrameworkDataLibrary\\MultiplayerFrameworkDataLibrary.csproj",
         "projectName": "MultiplayerFrameworkDataLibrary",
-        "projectPath": "C:\\Users\\b2hin\\Documents\\GitRepos\\MultiplayerCentralServices\\MultiplayerCentralServices\\MultiplayerFrameworkDataLibrary\\MultiplayerFrameworkDataLibrary.csproj",
+        "projectPath": "C:\\Users\\b2hin\\Desktop\\SVN\\MultiplayerFramework\\MultiplayerCentralServices\\MultiplayerFrameworkDataLibrary\\MultiplayerFrameworkDataLibrary.csproj",
         "packagesPath": "C:\\Users\\b2hin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\b2hin\\Documents\\GitRepos\\MultiplayerCentralServices\\MultiplayerCentralServices\\MultiplayerFrameworkDataLibrary\\obj\\",
+        "outputPath": "C:\\Users\\b2hin\\Desktop\\SVN\\MultiplayerFramework\\MultiplayerCentralServices\\MultiplayerFrameworkDataLibrary\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -30,8 +30,8 @@
         "frameworks": {
           "netstandard2.0": {
             "projectReferences": {
-              "C:\\Users\\b2hin\\Documents\\GitRepos\\MultiplayerCentralServices\\MultiplayerCentralServices\\MultiplayerFrameworkModelsLibrary\\MultiplayerFrameworkModelsLibrary.csproj": {
-                "projectPath": "C:\\Users\\b2hin\\Documents\\GitRepos\\MultiplayerCentralServices\\MultiplayerCentralServices\\MultiplayerFrameworkModelsLibrary\\MultiplayerFrameworkModelsLibrary.csproj"
+              "C:\\Users\\b2hin\\Desktop\\SVN\\MultiplayerFramework\\MultiplayerCentralServices\\MultiplayerFrameworkModelsLibrary\\MultiplayerFrameworkModelsLibrary.csproj": {
+                "projectPath": "C:\\Users\\b2hin\\Desktop\\SVN\\MultiplayerFramework\\MultiplayerCentralServices\\MultiplayerFrameworkModelsLibrary\\MultiplayerFrameworkModelsLibrary.csproj"
               }
             }
           }
@@ -74,14 +74,14 @@
         }
       }
     },
-    "C:\\Users\\b2hin\\Documents\\GitRepos\\MultiplayerCentralServices\\MultiplayerCentralServices\\MultiplayerFrameworkModelsLibrary\\MultiplayerFrameworkModelsLibrary.csproj": {
+    "C:\\Users\\b2hin\\Desktop\\SVN\\MultiplayerFramework\\MultiplayerCentralServices\\MultiplayerFrameworkModelsLibrary\\MultiplayerFrameworkModelsLibrary.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\b2hin\\Documents\\GitRepos\\MultiplayerCentralServices\\MultiplayerCentralServices\\MultiplayerFrameworkModelsLibrary\\MultiplayerFrameworkModelsLibrary.csproj",
+        "projectUniqueName": "C:\\Users\\b2hin\\Desktop\\SVN\\MultiplayerFramework\\MultiplayerCentralServices\\MultiplayerFrameworkModelsLibrary\\MultiplayerFrameworkModelsLibrary.csproj",
         "projectName": "MultiplayerFrameworkModelsLibrary",
-        "projectPath": "C:\\Users\\b2hin\\Documents\\GitRepos\\MultiplayerCentralServices\\MultiplayerCentralServices\\MultiplayerFrameworkModelsLibrary\\MultiplayerFrameworkModelsLibrary.csproj",
+        "projectPath": "C:\\Users\\b2hin\\Desktop\\SVN\\MultiplayerFramework\\MultiplayerCentralServices\\MultiplayerFrameworkModelsLibrary\\MultiplayerFrameworkModelsLibrary.csproj",
         "packagesPath": "C:\\Users\\b2hin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\b2hin\\Documents\\GitRepos\\MultiplayerCentralServices\\MultiplayerCentralServices\\MultiplayerFrameworkModelsLibrary\\obj\\",
+        "outputPath": "C:\\Users\\b2hin\\Desktop\\SVN\\MultiplayerFramework\\MultiplayerCentralServices\\MultiplayerFrameworkModelsLibrary\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
