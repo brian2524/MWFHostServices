@@ -11,6 +11,6 @@ namespace MultiplayerFrameworkModelsLibrary.Models
         public int Id { get; set; }
         public Game Game { get; set; }
         public string Args { get; set; }
-        public string AssociatedServer { get; set; }
+        public string AssociatedHost { get; set; }
     }
 }
