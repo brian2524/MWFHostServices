@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Dapper;
 using System.Data;
 using Microsoft.Data.SqlClient;
@@ -13,36 +10,13 @@ using Microsoft.Data.SqlClient;
 
 namespace MultiplayerFrameworkDataLibrary.DataAccess
 {
-    //  Make sure to not call Load/Modify Data within a loop. This will open and close a IDbConnection every call which is expensive.
+    //  Make sure to not call Load/Save Data within a loop. This will open and close a IDbConnection every call which is expensive.
     //  Call it once and pass in a storedProcedureName that accepts a table value parameter so that you can create the table value 
     //  parameter before you call the method and pass it in as a stored procedure parameter. This allows for one database call.
 
     //  Make this class internal to ensure only classes within this project can call on it. When using MultiplayerFrameworkDataLibrary to contact the db you should not call on this class.
     internal static class SqlDataAccess
     {
-        /*public static IEnumerable<T> LoadData<T>(string connString, string sql)
-        {
-            using (IDbConnection cnn = new SqlConnection(connString))
-            {
-                IEnumerable<T> rows = cnn.Query<T>(sql);
-                return rows;
-            }
-        }*/
-
-        /*public static int ModifyDatabase<T>(string connString, string sql, T data)
-        {
-            using (IDbConnection cnn = new SqlConnection(connString))
-            {
-                return cnn.Execute(sql, data);
-            }
-        }*/
-
-
-
-
-
-
-
         //  90% of loading data will call this. However if you want a stored procedure with output parameters, the caller
         //  will need to know about Dapper since it will need to use the dynamic parameters type 
         public static IEnumerable<T> LoadData<T/*, U*/>(string connString, string storedProcedureName, object/*U*/ parameters)

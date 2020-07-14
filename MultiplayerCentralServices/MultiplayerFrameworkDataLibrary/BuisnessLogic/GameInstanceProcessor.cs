@@ -2,7 +2,6 @@
 using MultiplayerFrameworkModelsLibrary.Models;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace MultiplayerFrameworkDataLibrary.BuisnessLogic
 {
@@ -21,6 +20,8 @@ namespace MultiplayerFrameworkDataLibrary.BuisnessLogic
             /*string sql = @"insert into dbo.GameInstanceTable (Game, Args, AssociatedServer)
                          values (@Game, @Args, @AssociatedServer);";
             return SqlDataAccess.ModifyDatabase(connString, sql, parameters);*/
+
+            /*SaveData(connection string here, "spGameInstance_CreateAndOutputId", object*//*T*//* parameters)*/
 
             throw new NotImplementedException();
         }
