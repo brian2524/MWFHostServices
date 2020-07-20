@@ -1,2 +1,2 @@
 # MultiplayerCentralServices
-Central API for multiplayer services (database interaction and Host access for cluster handling)
+Holds anything related to the Host or class models of the Multiplayer Framework. (HostServicesAPI, ClusterHandlerLibrary, MultiplayerFrameworkModelsLibrary, and the HostAccessAPI)
