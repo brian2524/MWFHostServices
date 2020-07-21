@@ -6116,11 +6116,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\b2hin\\Desktop\\SVN\\MultiplayerFramework\\MultiplayerCentralServices\\MultiplayerFrameworkDataLibrary\\MultiplayerFrameworkDataLibrary.csproj",
+      "projectUniqueName": "C:\\Users\\b2hin\\Desktop\\SVN\\MultiplayerCentralServices\\MultiplayerFrameworkDataLibrary\\MultiplayerFrameworkDataLibrary.csproj",
       "projectName": "MultiplayerFrameworkDataLibrary",
-      "projectPath": "C:\\Users\\b2hin\\Desktop\\SVN\\MultiplayerFramework\\MultiplayerCentralServices\\MultiplayerFrameworkDataLibrary\\MultiplayerFrameworkDataLibrary.csproj",
+      "projectPath": "C:\\Users\\b2hin\\Desktop\\SVN\\MultiplayerCentralServices\\MultiplayerFrameworkDataLibrary\\MultiplayerFrameworkDataLibrary.csproj",
       "packagesPath": "C:\\Users\\b2hin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\b2hin\\Desktop\\SVN\\MultiplayerFramework\\MultiplayerCentralServices\\MultiplayerFrameworkDataLibrary\\obj\\",
+      "outputPath": "C:\\Users\\b2hin\\Desktop\\SVN\\MultiplayerCentralServices\\MultiplayerFrameworkDataLibrary\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -6139,8 +6139,8 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "C:\\Users\\b2hin\\Desktop\\SVN\\MultiplayerFramework\\MultiplayerCentralServices\\MultiplayerFrameworkModelsLibrary\\MultiplayerFrameworkModelsLibrary.csproj": {
-              "projectPath": "C:\\Users\\b2hin\\Desktop\\SVN\\MultiplayerFramework\\MultiplayerCentralServices\\MultiplayerFrameworkModelsLibrary\\MultiplayerFrameworkModelsLibrary.csproj"
+            "C:\\Users\\b2hin\\Desktop\\SVN\\MultiplayerCentralServices\\MultiplayerFrameworkModelsLibrary\\MultiplayerFrameworkModelsLibrary.csproj": {
+              "projectPath": "C:\\Users\\b2hin\\Desktop\\SVN\\MultiplayerCentralServices\\MultiplayerFrameworkModelsLibrary\\MultiplayerFrameworkModelsLibrary.csproj"
             }
           }
         }
