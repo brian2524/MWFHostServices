@@ -1,10 +1,10 @@
-﻿using MultiplayerFrameworkDataLibrary.DataAccess;
+﻿using MWFDataLibrary.DataAccess;
 using MultiplayerFrameworkModelsLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MultiplayerFrameworkDataLibrary.BuisnessLogic
+namespace MWFDataLibrary.BuisnessLogic
 {
     class HostProcessor
     {

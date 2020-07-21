@@ -1,9 +1,9 @@
-﻿using MultiplayerFrameworkDataLibrary.DataAccess;
+﻿using MWFDataLibrary.DataAccess;
 using MultiplayerFrameworkModelsLibrary.Models;
 using System;
 using System.Collections.Generic;
 
-namespace MultiplayerFrameworkDataLibrary.BuisnessLogic
+namespace MWFDataLibrary.BuisnessLogic
 {
     public static class GameInstanceProcessor
     {

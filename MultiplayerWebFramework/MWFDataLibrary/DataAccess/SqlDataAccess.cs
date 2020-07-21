@@ -8,7 +8,7 @@ using Microsoft.Data.SqlClient;
          *  QueryMultiple: Used for when you need multiple result sets. Returns a GridReader and can be used to return the result of multiple Select statements, using a concept of MARS (Multiple active result set).
          *  Execute: Used for executing the DML statements (like Insert, Update and Delete) whose purpose is to make changes to the data in the database. The return type is an integer.*/
 
-namespace MultiplayerFrameworkDataLibrary.DataAccess
+namespace MWFDataLibrary.DataAccess
 {
     //  Make sure to not call Load/Save Data within a loop. This will open and close a IDbConnection every call which is expensive.
     //  Call it once and pass in a storedProcedureName that accepts a table value parameter so that you can create the table value 
