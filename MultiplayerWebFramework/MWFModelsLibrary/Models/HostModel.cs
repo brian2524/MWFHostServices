@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MultiplayerFrameworkModelsLibrary.Models
+namespace MWFModelsLibrary.Models
 {
     /*A Host should have 2 Ip addresses, one reserved for the GameInstances to listen on for players (HostIp),
       and another for the HostServicesApi to listen on (AssociatedHostServicesApiIp). This way, players don't get access to the Api.*/

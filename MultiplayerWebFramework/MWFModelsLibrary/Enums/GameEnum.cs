@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MultiplayerFrameworkModelsLibrary.Enums
+namespace MWFModelsLibrary.Enums
 {
     public enum Game
     {

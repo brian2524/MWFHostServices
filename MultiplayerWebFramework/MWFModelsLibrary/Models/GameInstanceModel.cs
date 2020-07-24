@@ -1,10 +1,10 @@
-﻿using MultiplayerFrameworkModelsLibrary.Enums;
+﻿using MWFModelsLibrary.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 
-namespace MultiplayerFrameworkModelsLibrary.Models
+namespace MWFModelsLibrary.Models
 {
     public class GameInstanceModel
     {
