@@ -9,7 +9,11 @@ namespace MWFModelsLibrary.Models
     public class HostModel
     {
         public int Id { get; set; }
+
+        // Players connect to this
         public string HostIp { get; set; }
+
+        // This ip is only for us. Players shouldn't be able to know this ip. We can spawn game instances and manage them with this.
         public string AssociatedHostServicesApiIp { get; set; }
         public string AssociatedHostServicesApiPort { get; set; }
         public bool IsActive { get; set; }
