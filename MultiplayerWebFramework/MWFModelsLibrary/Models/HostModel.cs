@@ -10,12 +10,15 @@ namespace MWFModelsLibrary.Models
     {
         public int Id { get; set; }
 
+
+        //------------------------------------------------------------ This machine has 2 different IP addresses (dual NIC card). One exposed for players to join (with the game instance's corresponding port number) and one setup with firewall protection to only allow us to use
         // Players connect to this
         public string HostIp { get; set; }
 
-        // This ip is only for us. Players shouldn't be able to know this ip. We can spawn game instances and manage them with this.
+        // We call on this to manage game instances. Players shouldn't be able to know this ip. We can spawn game instances and manage them with this.
         public string AssociatedHostServicesApiIp { get; set; }
-        public string AssociatedHostServicesApiPort { get; set; }
+        public string AssociatedHostServicesApiPort { get; set; }       // Get rid of this when I can! Just include the port number in the Ip address. We do however need to include a port number in the GameInstanceModel so we know which port the GameInstance is listening on.
+        //------------------------------------------------------------
         public bool IsActive { get; set; }
     }
 }
