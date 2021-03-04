@@ -16,7 +16,7 @@ namespace MWFModelsLibrary.Models
         public string HostIp { get; set; }
 
         // We call on this to manage game instances. Players shouldn't be able to know this ip. We can spawn game instances and manage them with this.
-        public string AssociatedHostServicesAPISocketAddress { get; set; }
+        public string HostServicesAPISocketAddress { get; set; }
         //------------------------------------------------------------
         public bool IsActive { get; set; }
     }
