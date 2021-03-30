@@ -46,7 +46,8 @@ namespace ClusterHandlerLibrary
                 switch (newGameInstance.Game)
                 {
                     case Game.Game0:
-                        /*Process.Start(new ProcessStartInfo() { Arguments = newGameInstance.Args });*/
+                        Process newProcess = Process.Start(new ProcessStartInfo() { Arguments = newGameInstance.Args });
+
                         //gameInstanceProcess.Exited += new EventHandler(gameInstance_Exited);
                         //gameInstanceProcess = Process.Start(_gameFilePathsOptions.ALSReplicated, gameInstance.Args);
                         //Process.Start(_gameFilePathsOptions.ALSReplicated, newGameInstance.Args);
