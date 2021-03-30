@@ -48,8 +48,8 @@ namespace ClusterHandlerLibrary
                     case Game.Game0:
                         /*Process.Start(new ProcessStartInfo() { Arguments = newGameInstance.Args });*/
                         //gameInstanceProcess.Exited += new EventHandler(gameInstance_Exited);
-                        //gameInstanceProcess = Process.Start(_gameFilePathsOptions.NinjaGame, gameInstance.Args);
-                        //Process.Start(_gameFilePathsOptions.NinjaGame, newGameInstance.Args);
+                        //gameInstanceProcess = Process.Start(_gameFilePathsOptions.ALSReplicated, gameInstance.Args);
+                        //Process.Start(_gameFilePathsOptions.ALSReplicated, newGameInstance.Args);
                         break;
                     case Game.Game1:
                         break;
