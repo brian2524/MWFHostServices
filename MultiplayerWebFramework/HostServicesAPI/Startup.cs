@@ -62,6 +62,7 @@ namespace HostServicesAPI
 
 
             // After all game instaces from this host are shutdown and removed from the database, we must remove the host model from the database (must happen after since removing the host model before could result in a rejection since there may be forign keys from Game Instances referenceing it)
+            // Also how do we want to handle cases where removing game instance from database fails? Should we not then remove the host from the database at all since this leaves a possibility the host won't be removed? Should we maybe add to the stored procedure for removing a host to remove all game instances that have forien keys to it? 
             /*var result = Http.PostAsJson<GameInstanceModel>(@"http://localhost:7071/api/RemoveHostById", newGameInstanceToAdd, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });*/
         }
     }
