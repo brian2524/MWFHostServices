@@ -57,7 +57,11 @@ namespace HostServicesAPI
 
         private void OnShutdown()
         {
-            // Idea for how we should be removing this host model from the database
+            // Here we should make sure to shut down all game instances and remove them from the database
+
+
+
+            // After all game instaces from this host are shutdown and removed from the database, we must remove the host model from the database (must happen after since removing the host model before could result in a rejection since there may be forign keys from Game Instances referenceing it)
             /*var result = Http.PostAsJson<GameInstanceModel>(@"http://localhost:7071/api/RemoveHostById", newGameInstanceToAdd, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });*/
         }
     }
