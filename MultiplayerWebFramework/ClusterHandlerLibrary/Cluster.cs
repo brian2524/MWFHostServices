@@ -20,12 +20,7 @@ namespace ClusterHandlerLibrary
             string localIp;
             try
             {
-                using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
-                {
-                    socket.Connect("8.8.8.8", 65530);
-                    IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
-                    localIp = endPoint.Address.ToString();
-                }
+                localIp = GetMachineIP();
             }
             catch (Exception e)
             {
@@ -51,6 +46,7 @@ namespace ClusterHandlerLibrary
                 switch (newGameInstance.Game)
                 {
                     case Game.Game0:
+                        /*Process.Start(new ProcessStartInfo() { Arguments = newGameInstance.Args });*/
                         //gameInstanceProcess.Exited += new EventHandler(gameInstance_Exited);
                         //gameInstanceProcess = Process.Start(_gameFilePathsOptions.NinjaGame, gameInstance.Args);
                         //Process.Start(_gameFilePathsOptions.NinjaGame, newGameInstance.Args);
@@ -61,6 +57,19 @@ namespace ClusterHandlerLibrary
             }
 
             return newGameInstance;
+        }
+
+        private static string GetMachineIP()
+        {
+            string localIp;
+            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+            {
+                socket.Connect("8.8.8.8", 65530);
+                IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
+                localIp = endPoint.Address.ToString();
+            }
+
+            return localIp;
         }
     }
 }
