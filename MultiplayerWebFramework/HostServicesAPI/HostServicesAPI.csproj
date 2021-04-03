@@ -5,8 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ClusterHandlerLibrary\ClusterHandlerLibrary.csproj" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ClusterHandlerLibrary\ClusterHandlerLibrary.csproj" />
+    <ProjectReference Include="..\MWFModelsLibrary\MWFModelsLibrary.csproj" />
+  </ItemGroup>
 
 </Project>
