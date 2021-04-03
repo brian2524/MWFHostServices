@@ -14,9 +14,9 @@ namespace ClusterHandlerLibrary
     {
         public List<GameInstanceModel> GameInstances { get; set; } // should this be a list? what type of operations will we be doing with this
     
-        void OutputDataRecieved(object sender, /*DataReceivedEventArgs e */System.EventArgs e)
+        void OutputDataRecieved(object sender, DataReceivedEventArgs e)
         {
-
+            Console.WriteLine(e.Data + "\n");
         }
         public GameInstanceModel SpinUp(Game game, string args)
         {
@@ -59,10 +59,12 @@ namespace ClusterHandlerLibrary
                                 UseShellExecute = false,
                                 RedirectStandardOutput = true
                             };
-                            newProcess.OutputDataReceived += OutputDataRecieved;
+                            newProcess.EnableRaisingEvents = true;
+                            newProcess.OutputDataReceived += new DataReceivedEventHandler(OutputDataRecieved);
 
 
                             newProcess.Start();
+                            newProcess.BeginOutputReadLine();
                         }
                         break;
                     case Game.Game1:
