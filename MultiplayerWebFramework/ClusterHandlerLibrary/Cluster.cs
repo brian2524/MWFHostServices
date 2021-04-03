@@ -14,7 +14,10 @@ namespace ClusterHandlerLibrary
     {
         public List<GameInstanceModel> GameInstances { get; set; } // should this be a list? what type of operations will we be doing with this
     
+        void OutputDataRecieved(object sender, /*DataReceivedEventArgs e */System.EventArgs e)
+        {
 
+        }
         public GameInstanceModel SpinUp(Game game, string args)
         {
             string localIp;
@@ -46,11 +49,21 @@ namespace ClusterHandlerLibrary
                 switch (newGameInstance.Game)
                 {
                     case Game.Game0:
-                        Process newProcess = Process.Start(new ProcessStartInfo() { Arguments = newGameInstance.Args });
+                        {
+                            Process newProcess = new Process();
+                            newProcess.StartInfo = new ProcessStartInfo()
+                            {
+/*                                FileName = _gameFilePathsOptions.ALSReplicated,*/
+                                Arguments = newGameInstance.Args,
+                                CreateNoWindow = false,
+                                UseShellExecute = false,
+                                RedirectStandardOutput = true
+                            };
+                            newProcess.OutputDataReceived += OutputDataRecieved;
 
-                        //gameInstanceProcess.Exited += new EventHandler(gameInstance_Exited);
-                        //gameInstanceProcess = Process.Start(_gameFilePathsOptions.ALSReplicated, gameInstance.Args);
-                        //Process.Start(_gameFilePathsOptions.ALSReplicated, newGameInstance.Args);
+
+                            newProcess.Start();
+                        }
                         break;
                     case Game.Game1:
                         break;
