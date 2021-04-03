@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using ClusterHandlerLibrary;
@@ -15,6 +16,12 @@ namespace HostServicesAPI.Controllers
     [ApiController]
     public class ClusterController : ControllerBase
     {
+        private readonly IHttpClientFactory _clientFactory;
+        public ClusterController(IHttpClientFactory clientFactory)
+        {
+            _clientFactory = clientFactory;
+        }
+
         [HttpPost]
         public GameInstanceModel SpinUp([FromBody] JsonElement spinUpData)
         {
@@ -30,7 +37,7 @@ namespace HostServicesAPI.Controllers
                 return null;
             }
             // create game instance on the DB, set the new Id of the newGameInstance, and return the model
-            return newGameInstance;//
+            return newGameInstance;
         }
     }
 }
