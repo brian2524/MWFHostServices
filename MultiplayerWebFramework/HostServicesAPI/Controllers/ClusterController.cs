@@ -23,14 +23,15 @@ namespace HostServicesAPI.Controllers
         }
 
         [HttpPost]
-        public GameInstanceModel SpinUp([FromBody] JsonElement spinUpData)
+        public GameInstanceModel SpinUp([FromBody] JsonElement req)
         {
-            Game game = (Game)(spinUpData.GetProperty("Game").GetInt32());
-            string args = spinUpData.GetProperty("Args").GetString();
+            Game    reqGame   = (Game)(req.GetProperty("Game").GetInt32());
+            string  reqArgs   = req.GetProperty("Args").GetString();
+            // Request will only give us the game to start and the arguments when starting it. Everything else will be decided by the Host (us)
 
             // This is BAD! this is only for testing (maybe add a cluster as a singleton in ConfigureServices instead)
             Cluster cluster = new Cluster();
-            GameInstanceModel newGameInstance = cluster.SpinUp(game, args);
+            GameInstanceModel newGameInstance = cluster.SpinUp(reqGame, reqArgs);
 
             if (newGameInstance == null)
             {
