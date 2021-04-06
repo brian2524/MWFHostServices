@@ -22,9 +22,6 @@ namespace HostServicesAPI
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-
-            // Idea for how we should be adding the new host to the database
-            /*var result = Http.PostAsJson<GameInstanceModel>(@"http://localhost:7071/api/CreateHostAndReturnId", newGameInstanceToAdd, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });*/
         }
 
         public IConfiguration Configuration { get; }
@@ -69,7 +66,14 @@ namespace HostServicesAPI
                 endpoints.MapControllers();
             });
 
+            hostApplicationLifetime.ApplicationStarted.Register(OnApplicationStarted);
             hostApplicationLifetime.ApplicationStopping.Register(OnShutdown);   // Bind to shutdown signal
+        }
+
+        private void OnApplicationStarted()
+        {
+            // Idea for how we should be adding the new host to the database
+            /*var result = Http.PostAsJson<GameInstanceModel>(@"http://localhost:7071/api/CreateHostAndReturnId", newGameInstanceToAdd, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });*/
         }
 
         private void OnShutdown()
