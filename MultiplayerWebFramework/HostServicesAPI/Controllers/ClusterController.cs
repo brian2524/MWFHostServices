@@ -41,9 +41,9 @@ namespace HostServicesAPI.Controllers
             }*/
 
             Game reqGameCasted = (Game)(req.GetProperty("Game").GetInt32());
-            string reqPort = req.GetProperty("Port").GetString();
+            string reqPort     = req.GetProperty("Port").GetString();
             string reqArgs     = req.GetProperty("Args").GetString();
-            // Request will only give us the game to start and the arguments when starting it. Everything else will be decided by the Host (us)
+            // Request will only give us the game to start, the port, and the arguments when starting it. Everything else will be decided by the Host (us)
 
             // This is BAD! this is only for testing (maybe add a cluster as a singleton in ConfigureServices instead)
             Cluster cluster = new Cluster();
