@@ -25,6 +25,7 @@ namespace HostServicesAPI.Objects
         private readonly IHttpClientFactory _httpClientFactory;
         public Cluster(IConfiguration Configuration, IHttpClientFactory httpClientFactory)
         {
+            GameInstances = new List<GameInstanceModel>();
             _configuration = Configuration;
             _httpClientFactory = httpClientFactory;
         }
@@ -51,7 +52,10 @@ namespace HostServicesAPI.Objects
                                     UseShellExecute = false
                                 }
                             };
-                            newProcess.StartInfo.Arguments += (" -port=" + port);
+                            if (port != "")
+                            {
+                                newProcess.StartInfo.Arguments += (" -port=" + port);
+                            }
 
                             if (newProcess.Start() == true)
                             {
@@ -70,6 +74,11 @@ namespace HostServicesAPI.Objects
                                         HostId = hostId     // Not accurate yet. Need to implement this application adding itself to db and getting it's ID so we know this
                                     });
                                     return true;
+                                }
+                                else
+                                {
+                                    // If the process started up correctly but wasn't successfully added to the db....
+                                    newProcess.Kill();
                                 }
                             }
                         }
