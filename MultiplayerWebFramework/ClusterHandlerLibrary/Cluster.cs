@@ -86,18 +86,13 @@ namespace ClusterHandlerLibrary
                                     FileName = @"C:\Users\b2hin\Desktop\WindowsNoEditor\ALSReplicated\Binaries\Win64\ALSReplicatedServer.exe",
                                     Arguments = newGameInstance.Args,
                                     CreateNoWindow = true,
-                                    UseShellExecute = false,
-                                    RedirectStandardOutput = true,
-                                    RedirectStandardError = true
+                                    UseShellExecute = false
                                 },
                                 EnableRaisingEvents = true
                             };
-                            newProcess.OutputDataReceived += OutputDataRecieved;
-                            newProcess.ErrorDataReceived += ErrorDataRecieved;
 
                             if (newProcess.Start() == true)
                             {
-                                newProcess.BeginOutputReadLine();
 
                             }
                         }
