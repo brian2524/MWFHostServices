@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MWFModelsLibrary", "MWFMode
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClusterHandlerLibrary", "ClusterHandlerLibrary\ClusterHandlerLibrary.csproj", "{CA157205-6708-491F-8A80-A936B0E0E2F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HostServicesAPI", "HostServicesAPI\HostServicesAPI.csproj", "{6E3234CD-5405-43D7-A600-FF75C71D0D99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HostServicesAPI", "HostServicesAPI\HostServicesAPI.csproj", "{6E3234CD-5405-43D7-A600-FF75C71D0D99}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
