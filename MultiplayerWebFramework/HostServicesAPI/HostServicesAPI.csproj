@@ -12,4 +12,10 @@
     <ProjectReference Include="..\MWFModelsLibrary\MWFModelsLibrary.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="MWFDataLibrary">
+      <HintPath>..\..\..\MWFDatabaseServices\MWFDatabaseServices\MWFDataLibrary\bin\Debug\netstandard2.0\MWFDataLibrary.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

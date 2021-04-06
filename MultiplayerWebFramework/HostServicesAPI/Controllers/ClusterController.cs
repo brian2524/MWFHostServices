@@ -24,7 +24,7 @@ namespace HostServicesAPI.Controllers
             _gameInstanceCluster = gameInstanceCluster;
         }
         [HttpPost]
-        public GameInstanceModel SpinUp([FromBody] JsonElement req)
+        public async Task SpinUp([FromBody] JsonElement req)
         {
             // This was a system I was working on so that the endpoint can accept the "Game" parameter as an int or string and it will just parse what you sent
             /*Game reqGameCasted = Game.Game0;
@@ -47,14 +47,7 @@ namespace HostServicesAPI.Controllers
             string reqArgs     = req.GetProperty("Args").GetString();
             // Request will only give us the game to start, the port, and the arguments when starting it. Everything else will be decided by the Host (us)
 
-            GameInstanceModel newGameInstance = _gameInstanceCluster.SpinUp(reqGameCasted, reqPort, reqArgs);
-
-            if (newGameInstance == null)
-            {
-                return null;
-            }
-            // create game instance on the DB, set the new Id of the newGameInstance, and return the model
-            return newGameInstance;
+            GameInstanceModel newGameInstance = await _gameInstanceCluster.SpinUp(reqGameCasted, reqPort, reqArgs);
         }
     }
 }

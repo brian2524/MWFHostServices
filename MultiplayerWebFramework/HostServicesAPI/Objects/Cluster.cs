@@ -9,7 +9,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
+using MWFDataLibrary.BuisnessLogic;
 using System.Threading.Tasks;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Text.Json;
 
 namespace HostServicesAPI.Objects
 {
@@ -18,12 +22,15 @@ namespace HostServicesAPI.Objects
         public List<GameInstanceModel> GameInstances { get; set; }
 
         private readonly IConfiguration _configuration;
-        public Cluster(IConfiguration Configuration)
+        private readonly IHttpClientFactory _httpClientFactory;
+        public Cluster(IConfiguration Configuration, IHttpClientFactory httpClientFactory)
         {
             _configuration = Configuration;
+            _httpClientFactory = httpClientFactory;
         }
-        public GameInstanceModel SpinUp(Game game, string port, string args)
+        public async Task<GameInstanceModel> SpinUp(Game game, string port, string args)
         {
+            int hostId = 3;
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))                                          // LINUX
             {
                 Console.WriteLine("Hello Linux!");
@@ -44,12 +51,25 @@ namespace HostServicesAPI.Objects
                                     UseShellExecute = false
                                 }
                             };
-                            // Append specified port number at the end of arguments
                             newProcess.StartInfo.Arguments += (" -port=" + port);
 
                             if (newProcess.Start() == true)
                             {
-                                /*return newGame;*/
+                                HttpClient client = _httpClientFactory.CreateClient("MWFHostServicesAPIClient");
+                                HttpResponseMessage responseMessage = await client.PostAsJsonAsync(@"http://localhost:7071/api/CreateGameInstanceAndReturnId", new { Game = (int)game, Port = port, Args = args, HostId = hostId }, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+                                if (responseMessage.IsSuccessStatusCode)
+                                {
+                                    int id = await HttpContentJsonExtensions.ReadFromJsonAsync<int>(responseMessage.Content);
+                                    // Still need to fill in correct host id but this is a good start for now
+                                    return new GameInstanceModel
+                                    {
+                                        Id = id,
+                                        Game = game,
+                                        Port = port,
+                                        Args = args,
+                                        HostId = hostId     // Not accurate yet. Need to implement this application adding itself to db and getting it's ID so we know this
+                                    };
+                                }
                             }
                         }
                         break;
