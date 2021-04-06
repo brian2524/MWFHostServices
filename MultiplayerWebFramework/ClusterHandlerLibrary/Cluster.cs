@@ -12,12 +12,41 @@ namespace ClusterHandlerLibrary
 {
     public class Cluster
     {
+        
         public List<GameInstanceModel> GameInstances { get; set; } // should this be a list? what type of operations will we be doing with this
-    
+
+        public static string getBetween(string strSource, string strStart, string strEnd)
+        {
+            if (strSource.Contains(strStart) && strSource.Contains(strEnd))
+            {
+                int Start, End;
+                Start = strSource.IndexOf(strStart, 0) + strStart.Length;
+                End = strSource.IndexOf(strEnd, Start);
+                return strSource.Substring(Start, End - Start);
+            }
+
+            return "";
+        }
+
         void OutputDataRecieved(object sender, DataReceivedEventArgs e)
         {
-            Console.WriteLine(e.Data + "\n");
+            Console.WriteLine(e.Data);
+
+
         }
+        void ErrorDataRecieved(object sender, DataReceivedEventArgs e)
+        {
+            Console.WriteLine(e.Data);
+
+
+        }
+        void InputDataRecieved(object sender, DataReceivedEventArgs e)
+        {
+            Console.WriteLine(e.Data);
+
+
+        }
+
         public GameInstanceModel SpinUp(Game game, string args)
         {
             string localIp;
@@ -50,21 +79,27 @@ namespace ClusterHandlerLibrary
                 {
                     case Game.Game0:
                         {
-                            Process newProcess = new Process();
-                            newProcess.StartInfo = new ProcessStartInfo()
+                            Process newProcess = new Process()
                             {
-/*                                FileName = _gameFilePathsOptions.ALSReplicated,*/
-                                Arguments = newGameInstance.Args,
-                                CreateNoWindow = false,
-                                UseShellExecute = false,
-                                RedirectStandardOutput = true
+                                StartInfo = new ProcessStartInfo()
+                                {
+                                    FileName = @"C:\Users\b2hin\Desktop\WindowsNoEditor\ALSReplicated\Binaries\Win64\ALSReplicatedServer.exe",
+                                    Arguments = newGameInstance.Args,
+                                    CreateNoWindow = true,
+                                    UseShellExecute = false,
+                                    RedirectStandardOutput = true,
+                                    RedirectStandardError = true
+                                },
+                                EnableRaisingEvents = true
                             };
-                            newProcess.EnableRaisingEvents = true;
-                            newProcess.OutputDataReceived += new DataReceivedEventHandler(OutputDataRecieved);
+                            newProcess.OutputDataReceived += OutputDataRecieved;
+                            newProcess.ErrorDataReceived += ErrorDataRecieved;
 
+                            if (newProcess.Start() == true)
+                            {
+                                newProcess.BeginOutputReadLine();
 
-                            newProcess.Start();
-                            newProcess.BeginOutputReadLine();
+                            }
                         }
                         break;
                     case Game.Game1:

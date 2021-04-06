@@ -21,7 +21,6 @@ namespace HostServicesAPI.Controllers
         {
             _clientFactory = clientFactory;
         }*/
-
         [HttpPost]
         public GameInstanceModel SpinUp([FromBody] JsonElement req)
         {
