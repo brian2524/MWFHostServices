@@ -16,11 +16,11 @@ namespace HostServicesAPI.Controllers
     [ApiController]
     public class ClusterController : ControllerBase
     {
-/*        private readonly IHttpClientFactory _clientFactory;
+        private readonly IHttpClientFactory _clientFactory;
         public ClusterController(IHttpClientFactory clientFactory)
         {
             _clientFactory = clientFactory;
-        }*/
+        }
         [HttpPost]
         public GameInstanceModel SpinUp([FromBody] JsonElement req)
         {

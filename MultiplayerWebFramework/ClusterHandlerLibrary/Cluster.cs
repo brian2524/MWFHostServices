@@ -10,9 +10,14 @@ using System.Net;
 
 namespace ClusterHandlerLibrary
 {
+    // Class containing Game Instances
     public class Cluster
     {
-        
+/*        private readonly IHttpClientFactory _httpClientFactory;
+        public Cluster(IHttpClientFactory httpClientFactory)
+        {
+            _httpClientFactory = httpClientFactory;
+        }*/
         public List<GameInstanceModel> GameInstances { get; set; }
 
         public GameInstanceModel SpinUp(Game game, string port, string args)
