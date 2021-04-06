@@ -1,4 +1,5 @@
 ﻿using HostServicesAPI.Interfaces;
+using Microsoft.Extensions.Configuration;
 using MWFModelsLibrary.Enums;
 using MWFModelsLibrary.Models;
 using System;
@@ -15,6 +16,12 @@ namespace HostServicesAPI.Objects
     public class Cluster : ICluster
     {
         public List<GameInstanceModel> GameInstances { get; set; }
+
+        private readonly IConfiguration _configuration;
+        public Cluster(IConfiguration Configuration)
+        {
+            _configuration = Configuration;
+        }
         public GameInstanceModel SpinUp(Game game, string port, string args)
         {
             string localIp;
@@ -51,8 +58,7 @@ namespace HostServicesAPI.Objects
                             {
                                 StartInfo = new ProcessStartInfo()
                                 {
-                                    // Appsettings.json GameFilePaths for Game0
-                                    FileName = @"C:\Users\b2hin\Desktop\WindowsNoEditor\ALSReplicated\Binaries\Win64\ALSReplicatedServer.exe",
+                                    FileName = _configuration.GetValue<string>("GameFilePaths:ALSReplicated"),
                                     Arguments = newGameInstance.Args,
                                     CreateNoWindow = true,
                                     UseShellExecute = false
