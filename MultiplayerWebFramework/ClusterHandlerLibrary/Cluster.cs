@@ -13,7 +13,7 @@ namespace ClusterHandlerLibrary
     public class Cluster
     {
         
-        public List<GameInstanceModel> GameInstances { get; set; } // should this be a list? what type of operations will we be doing with this
+        public List<GameInstanceModel> GameInstances { get; set; }
 
         public GameInstanceModel SpinUp(Game game, string port, string args)
         {
