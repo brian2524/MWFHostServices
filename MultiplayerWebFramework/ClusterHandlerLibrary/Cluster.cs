@@ -32,7 +32,7 @@ namespace ClusterHandlerLibrary
             {
                 Id = -1,                // -1 for now until the database creates an entry for this game instance and returns its Id
                 Game = game,
-                Port = port,            // -1 for now until we assign it
+                Port = port,
                 Args = args,
                 HostId = 0              // Come up with a way for this host to know its id
             };
