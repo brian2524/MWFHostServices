@@ -15,38 +15,6 @@ namespace ClusterHandlerLibrary
         
         public List<GameInstanceModel> GameInstances { get; set; } // should this be a list? what type of operations will we be doing with this
 
-        public static string getBetween(string strSource, string strStart, string strEnd)
-        {
-            if (strSource.Contains(strStart) && strSource.Contains(strEnd))
-            {
-                int Start, End;
-                Start = strSource.IndexOf(strStart, 0) + strStart.Length;
-                End = strSource.IndexOf(strEnd, Start);
-                return strSource.Substring(Start, End - Start);
-            }
-
-            return "";
-        }
-
-        void OutputDataRecieved(object sender, DataReceivedEventArgs e)
-        {
-            Console.WriteLine(e.Data);
-
-
-        }
-        void ErrorDataRecieved(object sender, DataReceivedEventArgs e)
-        {
-            Console.WriteLine(e.Data);
-
-
-        }
-        void InputDataRecieved(object sender, DataReceivedEventArgs e)
-        {
-            Console.WriteLine(e.Data);
-
-
-        }
-
         public GameInstanceModel SpinUp(Game game, string args)
         {
             string localIp;
