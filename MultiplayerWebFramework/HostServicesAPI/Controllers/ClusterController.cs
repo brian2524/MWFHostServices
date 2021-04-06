@@ -24,7 +24,7 @@ namespace HostServicesAPI.Controllers
             _gameInstanceCluster = gameInstanceCluster;
         }
         [HttpPost]
-        public async Task SpinUp([FromBody] JsonElement req)
+        public async Task<IActionResult> SpinUp([FromBody] JsonElement req)
         {
             // This was a system I was working on so that the endpoint can accept the "Game" parameter as an int or string and it will just parse what you sent
             /*Game reqGameCasted = Game.Game0;
@@ -42,19 +42,13 @@ namespace HostServicesAPI.Controllers
 
             }*/
             
+            // Request will only give us the game to start, the port, and the arguments when starting it. Everything else will be decided by the Host (us)
             Game reqGameCasted = (Game)(req.GetProperty("Game").GetInt32());
             string reqPort     = req.GetProperty("Port").GetString();
             string reqArgs     = req.GetProperty("Args").GetString();
-            // Request will only give us the game to start, the port, and the arguments when starting it. Everything else will be decided by the Host (us)
 
-            if (await _gameInstanceCluster.SpinUp(reqGameCasted, reqPort, reqArgs))
-            {
-                
-            }
-            else
-            {
-
-            }
+            HttpResponseMessage responseMessage = await _gameInstanceCluster.SpinUp(reqGameCasted, reqPort, reqArgs);
+            return StatusCode((int)(responseMessage.StatusCode), responseMessage.Content);
         }
     }
 }

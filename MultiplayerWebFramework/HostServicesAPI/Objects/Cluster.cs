@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
+using Microsoft.AspNetCore.Mvc;
 
 namespace HostServicesAPI.Objects
 {
@@ -29,7 +30,7 @@ namespace HostServicesAPI.Objects
             _configuration = Configuration;
             _httpClientFactory = httpClientFactory;
         }
-        public async Task<bool> SpinUp(Game game, string port, string args)
+        public async Task<HttpResponseMessage> SpinUp(Game game, string port, string args)
         {
             int hostId = 3;
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))                                          // LINUX
@@ -73,7 +74,7 @@ namespace HostServicesAPI.Objects
                                         Args = args,
                                         HostId = hostId     // Not accurate yet. Need to implement this application adding itself to db and getting it's ID so we know this
                                     });
-                                    return true;
+                                    return responseMessage;
                                 }
                                 else
                                 {
@@ -88,7 +89,7 @@ namespace HostServicesAPI.Objects
                 }
             }
 
-            return false;
+            return new HttpResponseMessage(HttpStatusCode.Conflict);
         }
 
         private static string GetMachineIP()
