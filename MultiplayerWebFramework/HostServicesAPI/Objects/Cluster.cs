@@ -28,7 +28,7 @@ namespace HostServicesAPI.Objects
             _configuration = Configuration;
             _httpClientFactory = httpClientFactory;
         }
-        public async Task<GameInstanceModel> SpinUp(Game game, string port, string args)
+        public async Task<bool> SpinUp(Game game, string port, string args)
         {
             int hostId = 3;
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))                                          // LINUX
@@ -61,7 +61,7 @@ namespace HostServicesAPI.Objects
                                 {
                                     int id = await HttpContentJsonExtensions.ReadFromJsonAsync<int>(responseMessage.Content);
                                     // Still need to fill in correct host id but this is a good start for now
-                                    return new GameInstanceModel
+                                    new GameInstanceModel
                                     {
                                         Id = id,
                                         Game = game,
@@ -69,6 +69,7 @@ namespace HostServicesAPI.Objects
                                         Args = args,
                                         HostId = hostId     // Not accurate yet. Need to implement this application adding itself to db and getting it's ID so we know this
                                     };
+                                    return true;
                                 }
                             }
                         }
@@ -78,7 +79,7 @@ namespace HostServicesAPI.Objects
                 }
             }
 
-            return null;
+            return false;
         }
 
         private static string GetMachineIP()

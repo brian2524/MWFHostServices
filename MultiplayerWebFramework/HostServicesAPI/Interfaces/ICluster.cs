@@ -9,6 +9,6 @@ namespace HostServicesAPI.Interfaces
 {
     public interface ICluster
     {
-        public Task<GameInstanceModel> SpinUp(Game game, string port, string args);
+        public Task<bool> SpinUp(Game game, string port, string args);
     }
 }

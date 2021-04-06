@@ -47,7 +47,14 @@ namespace HostServicesAPI.Controllers
             string reqArgs     = req.GetProperty("Args").GetString();
             // Request will only give us the game to start, the port, and the arguments when starting it. Everything else will be decided by the Host (us)
 
-            GameInstanceModel newGameInstance = await _gameInstanceCluster.SpinUp(reqGameCasted, reqPort, reqArgs);
+            if (await _gameInstanceCluster.SpinUp(reqGameCasted, reqPort, reqArgs))
+            {
+                
+            }
+            else
+            {
+
+            }
         }
     }
 }
