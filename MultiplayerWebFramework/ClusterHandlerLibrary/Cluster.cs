@@ -51,6 +51,7 @@ namespace ClusterHandlerLibrary
                             {
                                 StartInfo = new ProcessStartInfo()
                                 {
+                                    // Appsettings.json GameFilePaths for Game0
                                     FileName = @"C:\Users\b2hin\Desktop\WindowsNoEditor\ALSReplicated\Binaries\Win64\ALSReplicatedServer.exe",
                                     Arguments = newGameInstance.Args,
                                     CreateNoWindow = true,
