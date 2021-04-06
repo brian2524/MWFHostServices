@@ -55,8 +55,7 @@ namespace ClusterHandlerLibrary
                                     Arguments = newGameInstance.Args,
                                     CreateNoWindow = true,
                                     UseShellExecute = false
-                                },
-                                EnableRaisingEvents = true
+                                }
                             };
 
                             if (newProcess.Start() == true)
