@@ -24,33 +24,13 @@ namespace HostServicesAPI.Objects
         }
         public GameInstanceModel SpinUp(Game game, string port, string args)
         {
-            string localIp;
-            try
-            {
-                localIp = GetMachineIP();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                return null;
-            }
-
-            GameInstanceModel newGameInstance = new GameInstanceModel
-            {
-                Id = -1,                // -1 for now until the database creates an entry for this game instance and returns its Id
-                Game = game,
-                Port = port,
-                Args = args,
-                HostId = 0              // Come up with a way for this host to know its id
-            };
-
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))                                          // LINUX
             {
                 Console.WriteLine("Hello Linux!");
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))                                   // WINDOWS
             {
-                switch (newGameInstance.Game)
+                switch (game)
                 {
                     case Game.Game0:
                         {
@@ -59,17 +39,17 @@ namespace HostServicesAPI.Objects
                                 StartInfo = new ProcessStartInfo()
                                 {
                                     FileName = _configuration.GetValue<string>("GameFilePaths:ALSReplicated"),
-                                    Arguments = newGameInstance.Args,
+                                    Arguments = args,
                                     CreateNoWindow = true,
                                     UseShellExecute = false
                                 }
                             };
                             // Append specified port number at the end of arguments
-                            newProcess.StartInfo.Arguments += (" -port=" + newGameInstance.Port);
+                            newProcess.StartInfo.Arguments += (" -port=" + port);
 
                             if (newProcess.Start() == true)
                             {
-
+                                /*return newGame;*/
                             }
                         }
                         break;
@@ -78,7 +58,7 @@ namespace HostServicesAPI.Objects
                 }
             }
 
-            return newGameInstance;
+            return null;
         }
 
         private static string GetMachineIP()
