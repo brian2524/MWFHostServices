@@ -1,3 +1,5 @@
+using HostServicesAPI.Interfaces;
+using HostServicesAPI.Objects;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -42,6 +44,8 @@ namespace HostServicesAPI
             {
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));    // Give us json
             });
+
+            services.AddSingleton<ICluster, Cluster>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

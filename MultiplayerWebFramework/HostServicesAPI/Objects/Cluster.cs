@@ -1,25 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using HostServicesAPI.Interfaces;
 using MWFModelsLibrary.Enums;
 using MWFModelsLibrary.Models;
-using System.Runtime.InteropServices;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
-using System.Net.Sockets;
+using System.Linq;
 using System.Net;
+using System.Net.Sockets;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
-namespace ClusterHandlerLibrary
+namespace HostServicesAPI.Objects
 {
-    // Class containing Game Instances
-    public class Cluster
+    public class Cluster : ICluster
     {
-/*        private readonly IHttpClientFactory _httpClientFactory;
-        public Cluster(IHttpClientFactory httpClientFactory)
-        {
-            _httpClientFactory = httpClientFactory;
-        }*/
         public List<GameInstanceModel> GameInstances { get; set; }
-
         public GameInstanceModel SpinUp(Game game, string port, string args)
         {
             string localIp;
