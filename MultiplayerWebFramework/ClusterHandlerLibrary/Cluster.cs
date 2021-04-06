@@ -15,7 +15,7 @@ namespace ClusterHandlerLibrary
         
         public List<GameInstanceModel> GameInstances { get; set; } // should this be a list? what type of operations will we be doing with this
 
-        public GameInstanceModel SpinUp(Game game, string args)
+        public GameInstanceModel SpinUp(Game game, string port, string args)
         {
             string localIp;
             try
@@ -32,7 +32,7 @@ namespace ClusterHandlerLibrary
             {
                 Id = -1,                // -1 for now until the database creates an entry for this game instance and returns its Id
                 Game = game,
-                Port = "-1",            // -1 for now until we assign it
+                Port = port,            // -1 for now until we assign it
                 Args = args,
                 HostId = 0              // Come up with a way for this host to know its id
             };
@@ -57,6 +57,8 @@ namespace ClusterHandlerLibrary
                                     UseShellExecute = false
                                 }
                             };
+                            // Append specified port number at the end of arguments
+                            newProcess.StartInfo.Arguments += (" -port=" + newGameInstance.Port);
 
                             if (newProcess.Start() == true)
                             {
