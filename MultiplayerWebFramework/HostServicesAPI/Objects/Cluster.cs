@@ -27,12 +27,12 @@ namespace HostServicesAPI.Objects
     */
     public class Cluster : ICluster
     {
-        public List<GameInstanceModel> ActiveGameInstances { get; set; }
+        public List<GameInstanceAccessor> ActiveGameInstances { get; set; }
 
         private readonly IHttpClientFactory _httpClientFactory;
         public Cluster(IHttpClientFactory httpClientFactory)
         {
-            ActiveGameInstances = new List<GameInstanceModel>();
+            ActiveGameInstances = new List<GameInstanceAccessor>();
             _httpClientFactory = httpClientFactory;
         }
         public async Task<HttpResponseMessage> SpinUp(Game game, string port, string args, string filePath)
@@ -55,20 +55,24 @@ namespace HostServicesAPI.Objects
 
             if (newProcess.Start() == true)
             {
+                GameInstanceAccessor newGameInstanceAccessor = new GameInstanceAccessor(newProcess, null);
+                ActiveGameInstances.Add(newGameInstanceAccessor);
+
                 HttpClient client = _httpClientFactory.CreateClient("MWFHostServicesAPIClient");
                 HttpResponseMessage responseMessage = await client.PostAsJsonAsync(@"http://localhost:7071/api/CreateGameInstanceAndReturnId", new { Game = (int)game, Port = port, Args = args, HostId = hostId }, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
                 if (responseMessage.IsSuccessStatusCode)
                 {
                     int id = await HttpContentJsonExtensions.ReadFromJsonAsync<int>(responseMessage.Content);
+
                     // Still need to fill in correct host id but this is a good start for now
-                    ActiveGameInstances.Add(new GameInstanceModel
+/*                    ActiveGameInstances.Add(new GameInstanceModel
                     {
                         Id = id,
                         Game = game,
                         Port = port,
                         Args = args,
                         HostId = hostId     // Not accurate yet. Need to implement this application adding itself to db and getting it's ID so we know this
-                    });
+                    });*/
                     return responseMessage;
                 }
                 else
