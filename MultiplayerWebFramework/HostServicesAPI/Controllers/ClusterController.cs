@@ -20,7 +20,7 @@ namespace HostServicesAPI.Controllers
         private readonly IConfiguration _configuration;
         private readonly IHttpClientFactory _clientFactory;
         private readonly ICluster _gameInstanceCluster;
-        public ClusterController(IConfiguration Configuration, ICluster gameInstanceCluster, IHttpClientFactory clientFactory)
+        public ClusterController(IConfiguration Configuration, IHttpClientFactory clientFactory, ICluster gameInstanceCluster)
         {
             _configuration = Configuration;
             _clientFactory = clientFactory;
@@ -29,6 +29,7 @@ namespace HostServicesAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> SpinUpGameInstance([FromBody] JsonElement req)
         {
+            #region Parsing test code
             // This was a system I was working on so that the endpoint can accept the "Game" parameter as an int or string and it will just parse what you sent
             /*Game reqGameCasted = Game.Game0;
             if (req.GetProperty("Game").TryGetInt32(out int reqGameInt))
@@ -44,6 +45,7 @@ namespace HostServicesAPI.Controllers
                 }
 
             }*/
+            #endregion
 
             Game reqGameCasted;
             string reqPort;
@@ -74,22 +76,26 @@ namespace HostServicesAPI.Controllers
                 case Game.Game1:
                     break;
             }
-
-
             if (spinUpResponseMessage == null)
             {
                 return new BadRequestObjectResult("Passed in game doesn't exist on this host");
             }
 
+            // Lets work on creating an ObjectResult based off of the cluster's spinup response
+            ObjectResult retObjResult = StatusCode((int)(spinUpResponseMessage.StatusCode), spinUpResponseMessage.Content);
+            return retObjResult;
+        }
 
-
+        [HttpDelete("{reqId:int}")]
+        public async Task<IActionResult> ShutDownGameInstanceById(int reqId)
+        {
+            HttpResponseMessage shutDownResponseMessage = await _gameInstanceCluster.ShutDownGameInstance(reqId);
 
 
 
 
             // Lets work on creating an ObjectResult based off of the cluster's spinup response
-            ObjectResult retObjResult = StatusCode((int)(spinUpResponseMessage.StatusCode), spinUpResponseMessage.Content);
-            retObjResult.Value = "Value of the object result (type object and ends up in the body)";
+            ObjectResult retObjResult = StatusCode((int)(shutDownResponseMessage.StatusCode), shutDownResponseMessage.Content);
             return retObjResult;
         }
     }

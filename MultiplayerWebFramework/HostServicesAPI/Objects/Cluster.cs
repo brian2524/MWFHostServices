@@ -84,6 +84,39 @@ namespace HostServicesAPI.Objects
             return new HttpResponseMessage(HttpStatusCode.Conflict);
         }
 
+        public async Task<HttpResponseMessage> ShutDownGameInstance(int inId)
+        {
+            GameInstanceModel modelToRemove = null;
+            foreach (GameInstanceModel item in ActiveGameInstances)
+            {
+                if (item?.Id == inId)
+                {
+                    modelToRemove = item;
+                }
+            }
+            if (modelToRemove == null)
+            {
+                // We don't want to be able to modify the db if we aren't modifying locally
+                return new HttpResponseMessage(HttpStatusCode.Conflict);
+            }
+
+            HttpClient client = _httpClientFactory.CreateClient("MWFHostServicesAPIClient");
+            HttpResponseMessage responseMessage = await client.DeleteAsync(@"http://localhost:7071/api/DeleteGameInstanceById/?Id=" + inId);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                // Removed from db, so lets remove and shut it down locally
+                ActiveGameInstances.Remove(modelToRemove);
+                Process.GetProcessById(modelToRemove.ProcessId).Kill();
+                // Should probably call its IDisposable
+
+                return responseMessage;
+            }
+
+
+
+            return new HttpResponseMessage(HttpStatusCode.Conflict);
+        }
+
         private static string GetMachineIP()
         {
             string localIp;
