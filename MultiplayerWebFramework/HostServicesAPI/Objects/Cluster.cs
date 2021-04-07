@@ -23,15 +23,16 @@ namespace HostServicesAPI.Objects
     *      with the database. If we can have a one-to-one match up of the actual instanced processes to the database entries at
     *      all times without having to think about it, we won't encounter any troubles or confustion and game instance management 
     *      becomes simple.
+    *      The ActiveGameInstances collection helps us identify which entries in the database each process belongs to (contains process id and database id) 
     */
     public class Cluster : ICluster
     {
-        public List<GameInstanceModel> GameInstances { get; set; }
+        public List<GameInstanceModel> ActiveGameInstances { get; set; }
 
         private readonly IHttpClientFactory _httpClientFactory;
         public Cluster(IHttpClientFactory httpClientFactory)
         {
-            GameInstances = new List<GameInstanceModel>();
+            ActiveGameInstances = new List<GameInstanceModel>();
             _httpClientFactory = httpClientFactory;
         }
         public async Task<HttpResponseMessage> SpinUp(Game game, string port, string args, string filePath)
@@ -60,7 +61,7 @@ namespace HostServicesAPI.Objects
                 {
                     int id = await HttpContentJsonExtensions.ReadFromJsonAsync<int>(responseMessage.Content);
                     // Still need to fill in correct host id but this is a good start for now
-                    GameInstances.Add(new GameInstanceModel
+                    ActiveGameInstances.Add(new GameInstanceModel
                     {
                         Id = id,
                         Game = game,
