@@ -1,7 +1,9 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using HostServicesAPI.Interfaces;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -10,10 +12,14 @@ namespace HostServicesAPI.Objects
     internal class LifetimeEventsHostedService : IHostedService
     {
         private readonly IHostApplicationLifetime _appLifetime;
+        private readonly IHttpClientFactory _clientFactory;
+        private readonly ICluster _gameInstanceCluster;
 
-        public LifetimeEventsHostedService(IHostApplicationLifetime appLifetime)
+        public LifetimeEventsHostedService(IHostApplicationLifetime appLifetime, IHttpClientFactory clientFactory, ICluster gameInstanceCluster)
         {
             _appLifetime = appLifetime;
+            _clientFactory = clientFactory;
+            _gameInstanceCluster = gameInstanceCluster;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
