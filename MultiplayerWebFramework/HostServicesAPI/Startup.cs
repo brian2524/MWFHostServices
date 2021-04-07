@@ -76,7 +76,7 @@ namespace HostServicesAPI
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "HostServicesAPI v1"));
             }
 
-            app.UseHttpsRedirection();
+            /*app.UseHttpsRedirection();*/           // This is commented out because the website calls our http (not https). Uncomment this when we decide to use https for management console
 
             app.UseRouting();
 
