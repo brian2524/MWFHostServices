@@ -11,6 +11,6 @@ namespace HostServicesAPI.Interfaces
 {
     public interface ICluster
     {
-        public Task<HttpResponseMessage> SpinUp(Game game, string port, string args);
+        public Task<HttpResponseMessage> SpinUp(Game game, string port, string args, string filePath);
     }
 }

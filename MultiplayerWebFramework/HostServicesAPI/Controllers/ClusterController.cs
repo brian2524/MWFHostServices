@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using HostServicesAPI.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using MWFModelsLibrary.Enums;
 using MWFModelsLibrary.Models;
 
@@ -16,10 +17,12 @@ namespace HostServicesAPI.Controllers
     [ApiController]
     public class ClusterController : ControllerBase
     {
+        private readonly IConfiguration _configuration;
         private readonly IHttpClientFactory _clientFactory;
         private readonly ICluster _gameInstanceCluster;
-        public ClusterController(ICluster gameInstanceCluster, IHttpClientFactory clientFactory)
+        public ClusterController(IConfiguration Configuration, ICluster gameInstanceCluster, IHttpClientFactory clientFactory)
         {
+            _configuration = Configuration;
             _clientFactory = clientFactory;
             _gameInstanceCluster = gameInstanceCluster;
         }
@@ -56,8 +59,38 @@ namespace HostServicesAPI.Controllers
                 return new BadRequestObjectResult("Request didn't meet syntax requirements (make sure you include everything and have the correct property types)");
             }
 
-            HttpResponseMessage responseMessage = await _gameInstanceCluster.SpinUp(reqGameCasted, reqPort, reqArgs);
-            return StatusCode((int)(responseMessage.StatusCode), responseMessage.Content);
+
+
+
+
+            HttpResponseMessage spinUpResponseMessage = null;
+            switch (reqGameCasted)
+            {
+                case Game.Game0:
+                    {
+                        spinUpResponseMessage = await _gameInstanceCluster.SpinUp(reqGameCasted, reqPort, reqArgs, _configuration.GetValue<string>("GameFilePaths:ALSReplicated"));
+                    }
+                    break;
+                case Game.Game1:
+                    break;
+            }
+
+
+            if (spinUpResponseMessage == null)
+            {
+                return new BadRequestObjectResult("Passed in game doesn't exist on this host");
+            }
+
+
+
+
+
+
+
+            // Lets work on creating an ObjectResult based off of the cluster's spinup response
+            ObjectResult retObjResult = StatusCode((int)(spinUpResponseMessage.StatusCode), spinUpResponseMessage.Content);
+            retObjResult.Value = "Value of the object result (type object and ends up in the body)";
+            return retObjResult;
         }
     }
 }

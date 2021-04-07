@@ -22,72 +22,55 @@ namespace HostServicesAPI.Objects
     {
         public List<GameInstanceModel> GameInstances { get; set; }
 
-        private readonly IConfiguration _configuration;
         private readonly IHttpClientFactory _httpClientFactory;
-        public Cluster(IConfiguration Configuration, IHttpClientFactory httpClientFactory)
+        public Cluster(IHttpClientFactory httpClientFactory)
         {
             GameInstances = new List<GameInstanceModel>();
-            _configuration = Configuration;
             _httpClientFactory = httpClientFactory;
         }
-        public async Task<HttpResponseMessage> SpinUp(Game game, string port, string args)
+        public async Task<HttpResponseMessage> SpinUp(Game game, string port, string args, string filePath)
         {
             int hostId = 3;
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))                                          // LINUX
+            Process newProcess = new Process()
             {
-                Console.WriteLine("Hello Linux!");
-            }
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))                                   // WINDOWS
-            {
-                switch (game)
+                StartInfo = new ProcessStartInfo()
                 {
-                    case Game.Game0:
-                        {
-                            Process newProcess = new Process()
-                            {
-                                StartInfo = new ProcessStartInfo()
-                                {
-                                    FileName = _configuration.GetValue<string>("GameFilePaths:ALSReplicated"),
-                                    Arguments = args,
-                                    CreateNoWindow = true,
-                                    UseShellExecute = false
-                                }
-                            };
-                            if (port != "")
-                            {
-                                newProcess.StartInfo.Arguments += (" -port=" + port);
-                            }
+                    FileName = filePath,
+                    Arguments = args,
+                    CreateNoWindow = true,
+                    UseShellExecute = false
+                }
+            };
+            if (port != "")
+            {
+                newProcess.StartInfo.Arguments += (" -port=" + port);
+            }
 
-                            if (newProcess.Start() == true)
-                            {
-                                HttpClient client = _httpClientFactory.CreateClient("MWFHostServicesAPIClient");
-                                HttpResponseMessage responseMessage = await client.PostAsJsonAsync(@"http://localhost:7071/api/CreateGameInstanceAndReturnId", new { Game = (int)game, Port = port, Args = args, HostId = hostId }, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
-                                if (responseMessage.IsSuccessStatusCode)
-                                {
-                                    int id = await HttpContentJsonExtensions.ReadFromJsonAsync<int>(responseMessage.Content);
-                                    // Still need to fill in correct host id but this is a good start for now
-                                    GameInstances.Add(new GameInstanceModel
-                                    {
-                                        Id = id,
-                                        Game = game,
-                                        Port = port,
-                                        Args = args,
-                                        HostId = hostId     // Not accurate yet. Need to implement this application adding itself to db and getting it's ID so we know this
-                                    });
-                                    return responseMessage;
-                                }
-                                else
-                                {
-                                    // If the process started up correctly but wasn't successfully added to the db....
-                                    newProcess.Kill();
-                                }
-                            }
-                        }
-                        break;
-                    case Game.Game1:
-                        break;
+            if (newProcess.Start() == true)
+            {
+                HttpClient client = _httpClientFactory.CreateClient("MWFHostServicesAPIClient");
+                HttpResponseMessage responseMessage = await client.PostAsJsonAsync(@"http://localhost:7071/api/CreateGameInstanceAndReturnId", new { Game = (int)game, Port = port, Args = args, HostId = hostId }, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+                if (responseMessage.IsSuccessStatusCode)
+                {
+                    int id = await HttpContentJsonExtensions.ReadFromJsonAsync<int>(responseMessage.Content);
+                    // Still need to fill in correct host id but this is a good start for now
+                    GameInstances.Add(new GameInstanceModel
+                    {
+                        Id = id,
+                        Game = game,
+                        Port = port,
+                        Args = args,
+                        HostId = hostId     // Not accurate yet. Need to implement this application adding itself to db and getting it's ID so we know this
+                    });
+                    return responseMessage;
+                }
+                else
+                {
+                    // If the process started up correctly but wasn't successfully added to the db....
+                    newProcess.Kill();
                 }
             }
+            
 
             return new HttpResponseMessage(HttpStatusCode.Conflict);
         }
