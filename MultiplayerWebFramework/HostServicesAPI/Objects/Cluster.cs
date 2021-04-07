@@ -18,6 +18,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HostServicesAPI.Objects
 {
+    /**
+    *      Pourpose of this object is to provide an easy/simple way to create/shutdown game instances while keeping it in sync
+    *      with the database. If we can have a one-to-one match up of the actual instanced processes to the database entries at
+    *      all times without having to think about it, we won't encounter any troubles or confustion and game instance management 
+    *      becomes simple.
+    */
     public class Cluster : ICluster
     {
         public List<GameInstanceModel> GameInstances { get; set; }
