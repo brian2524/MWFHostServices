@@ -34,7 +34,7 @@ namespace HostServicesAPI.Objects
             ActiveGameInstances = new List<GameInstanceModel>();
             _httpClientFactory = httpClientFactory;
         }
-        public async Task<HttpResponseMessage> SpinUp(Game game, string port, string args, string filePath)
+        public async Task<HttpResponseMessage> SpinUpGameInstance(Game game, string port, string args, string filePath)
         {
             int hostId = 3;
             Process newProcess = new Process()

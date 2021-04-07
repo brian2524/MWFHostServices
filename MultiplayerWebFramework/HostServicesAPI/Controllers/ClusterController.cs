@@ -27,7 +27,7 @@ namespace HostServicesAPI.Controllers
             _gameInstanceCluster = gameInstanceCluster;
         }
         [HttpPost]
-        public async Task<IActionResult> SpinUp([FromBody] JsonElement req)
+        public async Task<IActionResult> SpinUpGameInstance([FromBody] JsonElement req)
         {
             // This was a system I was working on so that the endpoint can accept the "Game" parameter as an int or string and it will just parse what you sent
             /*Game reqGameCasted = Game.Game0;
@@ -68,7 +68,7 @@ namespace HostServicesAPI.Controllers
             {
                 case Game.Game0:
                     {
-                        spinUpResponseMessage = await _gameInstanceCluster.SpinUp(reqGameCasted, reqPort, reqArgs, _configuration.GetValue<string>("GameFilePaths:ALSReplicated"));
+                        spinUpResponseMessage = await _gameInstanceCluster.SpinUpGameInstance(reqGameCasted, reqPort, reqArgs, _configuration.GetValue<string>("GameFilePaths:ALSReplicated"));
                     }
                     break;
                 case Game.Game1:
