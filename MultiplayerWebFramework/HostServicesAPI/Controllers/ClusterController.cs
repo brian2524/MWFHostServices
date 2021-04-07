@@ -89,7 +89,19 @@ namespace HostServicesAPI.Controllers
 
             // Lets work on creating an ObjectResult based off of the cluster's spinup response
             ObjectResult retObjResult = StatusCode((int)(spinUpResponseMessage.StatusCode), spinUpResponseMessage.Content);
-            retObjResult.Value = "Value of the object result (type object and ends up in the body)";
+            return retObjResult;
+        }
+
+        [HttpDelete("{reqId:int}")]
+        public async Task<IActionResult> ShutDownGameInstanceById(int reqId)
+        {
+            HttpResponseMessage shutDownResponseMessage = await _gameInstanceCluster.ShutDownGameInstance(reqId);
+
+
+
+
+            // Lets work on creating an ObjectResult based off of the cluster's spinup response
+            ObjectResult retObjResult = StatusCode((int)(shutDownResponseMessage.StatusCode), shutDownResponseMessage.Content);
             return retObjResult;
         }
     }
