@@ -41,11 +41,20 @@ namespace HostServicesAPI.Controllers
                 }
 
             }*/
-            
-            // Request will only give us the game to start, the port, and the arguments when starting it. Everything else will be decided by the Host (us)
-            Game reqGameCasted = (Game)(req.GetProperty("Game").GetInt32());
-            string reqPort     = req.GetProperty("Port").GetString();
-            string reqArgs     = req.GetProperty("Args").GetString();
+
+            Game reqGameCasted;
+            string reqPort;
+            string reqArgs;
+            try
+            {
+                reqGameCasted = (Game)(req.GetProperty("Game").GetInt32());
+                reqPort = req.GetProperty("Port").GetString();
+                reqArgs = req.GetProperty("Args").GetString();
+            }
+            catch (Exception e)
+            {
+                return new BadRequestObjectResult("Request didn't meet syntax requirements (make sure you include everything and have the correct property types)");
+            }
 
             HttpResponseMessage responseMessage = await _gameInstanceCluster.SpinUp(reqGameCasted, reqPort, reqArgs);
             return StatusCode((int)(responseMessage.StatusCode), responseMessage.Content);
