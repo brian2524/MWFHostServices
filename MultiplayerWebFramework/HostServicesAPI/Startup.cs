@@ -37,12 +37,11 @@ namespace HostServicesAPI
             });
 
 
-            services.AddHttpClient("MWFHostServicesAPIClient", client =>
+            services.AddHttpClient("MWFHostServicesAPIClient", client =>                                             // Add HttpClientFactory
             {
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));    // Give us json
             });
-
-            services.AddSingleton<ICluster, Cluster>();
+            services.AddSingleton<ICluster, Cluster>();                                                              // Add our custom service
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
