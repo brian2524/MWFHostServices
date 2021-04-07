@@ -23,16 +23,15 @@ namespace HostServicesAPI.Objects
     *      with the database. If we can have a one-to-one match up of the actual instanced processes to the database entries at
     *      all times without having to think about it, we won't encounter any troubles or confustion and game instance management 
     *      becomes simple.
-    *      The ActiveGameInstances collection helps us identify which entries in the database each process belongs to (contains process id and database id) 
     */
     public class Cluster : ICluster
     {
-        public List<GameInstanceAccessor> ActiveGameInstances { get; set; }
+        public List<GameInstanceModel> ActiveGameInstances { get; set; }
 
         private readonly IHttpClientFactory _httpClientFactory;
         public Cluster(IHttpClientFactory httpClientFactory)
         {
-            ActiveGameInstances = new List<GameInstanceAccessor>();
+            ActiveGameInstances = new List<GameInstanceModel>();
             _httpClientFactory = httpClientFactory;
         }
         public async Task<HttpResponseMessage> SpinUp(Game game, string port, string args, string filePath)
@@ -46,7 +45,7 @@ namespace HostServicesAPI.Objects
                     Arguments = args,
                     CreateNoWindow = true,
                     UseShellExecute = false
-                }
+                }                
             };
             if (port != "")
             {
@@ -55,30 +54,29 @@ namespace HostServicesAPI.Objects
 
             if (newProcess.Start() == true)
             {
-                GameInstanceAccessor newGameInstanceAccessor = new GameInstanceAccessor(newProcess, null);
-                ActiveGameInstances.Add(newGameInstanceAccessor);
+                GameInstanceModel newGameInstanceModel = new GameInstanceModel { /*processId = newProcess.Id*/ };
+                ActiveGameInstances.Add(newGameInstanceModel);
 
                 HttpClient client = _httpClientFactory.CreateClient("MWFHostServicesAPIClient");
                 HttpResponseMessage responseMessage = await client.PostAsJsonAsync(@"http://localhost:7071/api/CreateGameInstanceAndReturnId", new { Game = (int)game, Port = port, Args = args, HostId = hostId }, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
                 if (responseMessage.IsSuccessStatusCode)
                 {
+                    // Finish setting new game instance model's fields now that we know it was added to the db
                     int id = await HttpContentJsonExtensions.ReadFromJsonAsync<int>(responseMessage.Content);
-                    newGameInstanceAccessor.gameInstanceDatabaseModel = new GameInstanceModel
-                    {
-                        Id = id,
-                        Game = game,
-                        Port = port,
-                        Args = args,
-                        HostId = hostId     // Not accurate yet. Need to implement this application adding itself to db and getting it's ID so we know this
-                    };
+                    newGameInstanceModel.Id = id;
+                    newGameInstanceModel.Game = game;
+                    newGameInstanceModel.Port = port;
+                    newGameInstanceModel.Args = args;
+                    newGameInstanceModel.HostId = hostId;
 
                     return responseMessage;
                 }
                 else
                 {
                     // If the process started up correctly but wasn't successfully added to the db....
-                    ActiveGameInstances.Remove(newGameInstanceAccessor);
+                    ActiveGameInstances.Remove(newGameInstanceModel);
                     newProcess.Kill();
+                    // Should probably call its IDisposable
                 }
             }
             
