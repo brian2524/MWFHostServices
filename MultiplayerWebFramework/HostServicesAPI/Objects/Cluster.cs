@@ -63,21 +63,21 @@ namespace HostServicesAPI.Objects
                 if (responseMessage.IsSuccessStatusCode)
                 {
                     int id = await HttpContentJsonExtensions.ReadFromJsonAsync<int>(responseMessage.Content);
-
-                    // Still need to fill in correct host id but this is a good start for now
-/*                    ActiveGameInstances.Add(new GameInstanceModel
+                    newGameInstanceAccessor.gameInstanceDatabaseModel = new GameInstanceModel
                     {
                         Id = id,
                         Game = game,
                         Port = port,
                         Args = args,
                         HostId = hostId     // Not accurate yet. Need to implement this application adding itself to db and getting it's ID so we know this
-                    });*/
+                    };
+
                     return responseMessage;
                 }
                 else
                 {
                     // If the process started up correctly but wasn't successfully added to the db....
+                    ActiveGameInstances.Remove(newGameInstanceAccessor);
                     newProcess.Kill();
                 }
             }
