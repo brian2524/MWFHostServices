@@ -29,6 +29,7 @@ namespace HostServicesAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> SpinUpGameInstance([FromBody] JsonElement req)
         {
+            #region Parsing test code
             // This was a system I was working on so that the endpoint can accept the "Game" parameter as an int or string and it will just parse what you sent
             /*Game reqGameCasted = Game.Game0;
             if (req.GetProperty("Game").TryGetInt32(out int reqGameInt))
@@ -44,6 +45,7 @@ namespace HostServicesAPI.Controllers
                 }
 
             }*/
+            #endregion
 
             Game reqGameCasted;
             string reqPort;
@@ -74,18 +76,10 @@ namespace HostServicesAPI.Controllers
                 case Game.Game1:
                     break;
             }
-
-
             if (spinUpResponseMessage == null)
             {
                 return new BadRequestObjectResult("Passed in game doesn't exist on this host");
             }
-
-
-
-
-
-
 
             // Lets work on creating an ObjectResult based off of the cluster's spinup response
             ObjectResult retObjResult = StatusCode((int)(spinUpResponseMessage.StatusCode), spinUpResponseMessage.Content);
