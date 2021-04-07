@@ -86,9 +86,6 @@ namespace HostServicesAPI.Objects
 
         public async Task<HttpResponseMessage> ShutDownGameInstance(int processId)
         {
-            int hostId = 3;
-
-
             HttpClient client = _httpClientFactory.CreateClient("MWFHostServicesAPIClient");
             HttpResponseMessage responseMessage = await client.DeleteAsync(@"http://localhost:7071/api/DeleteGameInstanceById/?Id=" + processId);
             if (responseMessage.IsSuccessStatusCode)
@@ -101,9 +98,9 @@ namespace HostServicesAPI.Objects
                         ActiveGameInstances.Remove(item);
                         Process.GetProcessById(processId).Kill();
                         // Should probably call its IDisposable
+                        return responseMessage;
                     }
                 }
-                return responseMessage;
             }
 
 
