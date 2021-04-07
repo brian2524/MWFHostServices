@@ -45,7 +45,7 @@ namespace HostServicesAPI.Objects
                     Arguments = args,
                     CreateNoWindow = true,
                     UseShellExecute = false
-                }                
+                }
             };
             if (port != "")
             {
@@ -54,11 +54,11 @@ namespace HostServicesAPI.Objects
 
             if (newProcess.Start() == true)
             {
-                GameInstanceModel newGameInstanceModel = new GameInstanceModel { /*processId = newProcess.Id*/ };
+                GameInstanceModel newGameInstanceModel = new GameInstanceModel { ProcessId = newProcess.Id };
                 ActiveGameInstances.Add(newGameInstanceModel);
 
                 HttpClient client = _httpClientFactory.CreateClient("MWFHostServicesAPIClient");
-                HttpResponseMessage responseMessage = await client.PostAsJsonAsync(@"http://localhost:7071/api/CreateGameInstanceAndReturnId", new { Game = (int)game, Port = port, Args = args, HostId = hostId }, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+                HttpResponseMessage responseMessage = await client.PostAsJsonAsync(@"http://localhost:7071/api/CreateGameInstanceAndReturnId", new { ProcessId = newGameInstanceModel.ProcessId, Game = (int)game, Port = port, Args = args, HostId = hostId }, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
                 if (responseMessage.IsSuccessStatusCode)
                 {
                     // Finish setting new game instance model's fields now that we know it was added to the db

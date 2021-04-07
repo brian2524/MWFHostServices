@@ -9,6 +9,7 @@ namespace MWFModelsLibrary.Models
     public class GameInstanceModel
     {
         public int Id { get; set; }
+        public int ProcessId { get; set; }
         public Game Game { get; set; }
         public string Port { get; set; }
         public string Args { get; set; }
