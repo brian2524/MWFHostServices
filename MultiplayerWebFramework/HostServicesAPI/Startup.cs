@@ -36,7 +36,6 @@ namespace HostServicesAPI
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "HostServicesAPI", Version = "v1" });
             });
 
-
             services.AddHttpClient("MWFHostServicesAPIClient", client =>                                             // Add HttpClientFactory
             {
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));    // Give us json

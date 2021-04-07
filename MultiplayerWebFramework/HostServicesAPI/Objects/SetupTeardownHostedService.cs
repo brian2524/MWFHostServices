@@ -20,6 +20,9 @@ namespace HostServicesAPI.Objects
         private readonly IHttpClientFactory _clientFactory;
         private readonly ICluster _gameInstanceCluster;
 
+        // The Host model from the database that identifies this HostServicesApi application
+        public HostModel applicationHostModel { get; private set; }
+
         public SetupTeardownHostedService(ILogger<SetupTeardownHostedService> logger, IHostApplicationLifetime appLifetime, IHttpClientFactory clientFactory, ICluster gameInstanceCluster)
         {
             _logger = logger;
@@ -44,15 +47,14 @@ namespace HostServicesAPI.Objects
         // We can return void asynchronously since this is a callback
         private async void OnStarted()
         {
-            // Idea for how we should be adding the new host to the database
-            HostModel hostModel = new HostModel { HostIp = "d", HostServicesAPISocketAddress = "34243:5245", IsActive = true };
+            applicationHostModel = new HostModel { HostIp = "d", HostServicesAPISocketAddress = "34243:5245", IsActive = true };
 
             HttpResponseMessage httpResponse = null;
             try
             {
                 _logger.Log(LogLevel.Information, "Attempting to register us with the database (creating db host entry)");
                 HttpClient client = _clientFactory.CreateClient("MWFHostServicesAPIClient");
-                httpResponse = await client.PostAsJsonAsync<HostModel>(@"http://localhost:7071/api/CreateHostAndReturnId", hostModel, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+                httpResponse = await client.PostAsJsonAsync<HostModel>(@"http://localhost:7071/api/CreateHostAndReturnId", applicationHostModel, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
 
             }
             catch (Exception e)
@@ -67,7 +69,7 @@ namespace HostServicesAPI.Objects
                     _logger.Log(LogLevel.Critical, "Unsuccessful status code: " + httpResponse.StatusCode.ToString() + "\nWe must shut down since we can't be added to the database");
                     _appLifetime.StopApplication();
                 }
-                else
+                else if (httpResponse?.IsSuccessStatusCode == true)
                 {
                     _logger.Log(LogLevel.Information, "Successful status code: " + httpResponse.StatusCode.ToString() + "\nHost added to database! API is now ready for requests!");
                 }
