@@ -115,5 +115,31 @@ namespace HostServicesAPI.Objects
 
             return new HttpResponseMessage(HttpStatusCode.Conflict);
         }
+
+        public async Task<bool> ShutDownAllGameInstances(int hostId)
+        {
+            // Would be nice to have a stored procedure that removes all of a certain host's GameInstances
+            HttpClient client = _httpClientFactory.CreateClient("MWFHostServicesAPIClient");
+            HttpResponseMessage responseMessage = await client.DeleteAsync(@"http://localhost:7071/api/DeleteGameInstancesByHostId/?HostId=" + hostId);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                string responseBody = await responseMessage.Content.ReadAsStringAsync();
+                int dbGameInstancesDeleted = int.Parse(responseBody);
+                if (dbGameInstancesDeleted == ActiveGameInstances.Count)
+                {
+
+                }
+            }
+            foreach (GameInstanceModel item in ActiveGameInstances)
+            {
+                Process procToKill = Process.GetProcessById(item.ProcessId);
+
+                ActiveGameInstances.Remove(item);
+                procToKill?.Kill();
+                // Should probably call its IDisposable
+            }
+
+            return true;
+        }
     }
 }

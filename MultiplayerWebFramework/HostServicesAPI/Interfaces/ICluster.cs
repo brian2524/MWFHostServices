@@ -14,5 +14,6 @@ namespace HostServicesAPI.Interfaces
         public List<GameInstanceModel> ActiveGameInstances { get; set; }
         public Task<HttpResponseMessage> SpinUpGameInstance(Game game, string port, string args, int hostId, string filePath);
         public Task<HttpResponseMessage> ShutDownGameInstanceById(int inGameInstanceId);
+        public Task<bool> ShutDownAllGameInstances(int hostId);
     }
 }
