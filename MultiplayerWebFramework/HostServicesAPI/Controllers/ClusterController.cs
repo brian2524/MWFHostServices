@@ -20,13 +20,13 @@ namespace HostServicesAPI.Controllers
         private readonly IConfiguration _configuration;
         private readonly IHttpClientFactory _clientFactory;
         private readonly ICluster _gameInstanceCluster;
-        private readonly IApplicationHostModel _setupTeardownHostedService;
-        public ClusterController(IConfiguration Configuration, IHttpClientFactory clientFactory, ICluster gameInstanceCluster, IApplicationHostModel setupTeardownHostedService)
+        private readonly IMWFHostModel _MWFHostModel;
+        public ClusterController(IConfiguration Configuration, IHttpClientFactory clientFactory, ICluster gameInstanceCluster, IMWFHostModel MWFHostModel)
         {
             _configuration = Configuration;
             _clientFactory = clientFactory;
             _gameInstanceCluster = gameInstanceCluster;
-            _setupTeardownHostedService = setupTeardownHostedService;
+            _MWFHostModel = MWFHostModel;
 
         }
         [HttpPost]
@@ -73,7 +73,7 @@ namespace HostServicesAPI.Controllers
             {
                 case Game.Game0:
                     {
-                        spinUpResponseMessage = await _gameInstanceCluster.SpinUpGameInstance(reqGameCasted, reqPort, reqArgs, _setupTeardownHostedService.applicationHostModel.Id, _configuration.GetValue<string>("GameFilePaths:ALSReplicated"));
+                        spinUpResponseMessage = await _gameInstanceCluster.SpinUpGameInstance(reqGameCasted, reqPort, reqArgs, _MWFHostModel.applicationHostModel.Id, _configuration.GetValue<string>("GameFilePaths:ALSReplicated"));
                     }
                     break;
                 case Game.Game1:
@@ -84,21 +84,8 @@ namespace HostServicesAPI.Controllers
                 return new BadRequestObjectResult("Passed in game doesn't exist on this host");
             }
 
-            // Lets work on creating an ObjectResult based off of the cluster's spinup response
+            // Lets work on creating an ObjectResult based off of the cluster's instance spinup response
             ObjectResult retObjResult = StatusCode((int)(spinUpResponseMessage.StatusCode), spinUpResponseMessage.Content);
-            return retObjResult;
-        }
-
-        [HttpDelete("{reqId:int}")]
-        public async Task<IActionResult> ShutDownGameInstanceById(int reqId)
-        {
-            HttpResponseMessage shutDownResponseMessage = await _gameInstanceCluster.ShutDownGameInstance(reqId);
-
-
-
-
-            // Lets work on creating an ObjectResult based off of the cluster's spinup response
-            ObjectResult retObjResult = StatusCode((int)(shutDownResponseMessage.StatusCode), shutDownResponseMessage.Content);
             return retObjResult;
         }
     }

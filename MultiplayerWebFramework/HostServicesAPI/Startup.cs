@@ -29,6 +29,8 @@ namespace HostServicesAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -36,20 +38,24 @@ namespace HostServicesAPI
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "HostServicesAPI", Version = "v1" });
             });
 
+
+
+
+
             services.AddHttpClient("MWFHostServicesAPIClient", client =>                                            // Add HttpClientFactory
             {
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));   // Give us json
             });
 
             // ------------------------------------------------------------
-            // This is how you can make sure only one singleton instance of a concrete class will be made when there are multiple interfaces being implemented
+            // This is how you can make sure only one singleton instance of a concrete class will be made when there are multiple interfaces being implemented for it
             services.AddSingleton<SetupTeardownHostedService>();    // First create the single instance
             // now we need to fill in its dependencies............
             services.AddSingleton<IHostedService>(x => x.GetRequiredService<SetupTeardownHostedService>());         // Forward requests to our concrete class
-            services.AddSingleton<IApplicationHostModel>(x => x.GetRequiredService<SetupTeardownHostedService>());  // Forward requests to our concrete class
+            services.AddSingleton<IMWFHostModel>(x => x.GetRequiredService<SetupTeardownHostedService>());  // Forward requests to our concrete class
             // ------------------------------------------------------------
 
-            services.AddSingleton<ICluster, Cluster>();                                                             // Add our custom service
+            services.AddSingleton<ICluster, Cluster>();                                                             // Add our cluster as an app singleton
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,6 +71,11 @@ namespace HostServicesAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(builder => builder
+     .AllowAnyOrigin()
+     .AllowAnyMethod()
+     .AllowAnyHeader());
 
             app.UseAuthorization();
 

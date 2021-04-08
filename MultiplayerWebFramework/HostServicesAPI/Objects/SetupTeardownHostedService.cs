@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace HostServicesAPI.Objects
 {
-    internal class SetupTeardownHostedService : IHostedService, IApplicationHostModel
+    internal class SetupTeardownHostedService : IHostedService, IMWFHostModel
     {
         private readonly ILogger _logger;
         private readonly IHostApplicationLifetime _appLifetime;
@@ -24,6 +24,7 @@ namespace HostServicesAPI.Objects
 
         public HostModel applicationHostModel { get; set; }
 
+        // Injected into ClusterController since injecting into the cluster class causes circular dependency in ICluster service.
         public SetupTeardownHostedService(ILogger<SetupTeardownHostedService> logger, IHostApplicationLifetime appLifetime, IHttpClientFactory clientFactory, ICluster gameInstanceCluster)
         {
             _logger = logger;
@@ -49,7 +50,13 @@ namespace HostServicesAPI.Objects
         // We can return void asynchronously since this is a callback
         private async void OnStarted()
         {
-            applicationHostModel = new HostModel { HostIp = GetMachineIP(), HostServicesAPISocketAddress = GetMachineIP(), IsActive = true };
+            string machineIp = GetMachineIP();
+            applicationHostModel = new HostModel 
+            {
+                HostIp = machineIp,
+                HostServicesAPISocketAddress = machineIp,
+                IsActive = true 
+            };
 
             HttpResponseMessage httpResponse = null;
             try
@@ -62,20 +69,20 @@ namespace HostServicesAPI.Objects
             {
                 _logger.Log(LogLevel.Critical, e, "We must shut down since we can't be added to the database");
                 _appLifetime.StopApplication();
+                return;
             }
-            finally
+               
+            if (httpResponse?.IsSuccessStatusCode == false)
             {
-                if (httpResponse?.IsSuccessStatusCode == false)
-                {
-                    _logger.Log(LogLevel.Critical, "Unsuccessful status code: " + httpResponse.StatusCode.ToString() + "\nWe must shut down since we can't be added to the database");
-                    _appLifetime.StopApplication();
-                }
-                else if (httpResponse?.IsSuccessStatusCode == true)
-                {
-                    _logger.Log(LogLevel.Information, "Successful status code: " + httpResponse.StatusCode.ToString() + "\nHost added to database! API is now ready for requests!");
-                    int id = await HttpContentJsonExtensions.ReadFromJsonAsync<int>(httpResponse.Content);
-                    applicationHostModel.Id = id;
-                }
+                _logger.Log(LogLevel.Critical, "Unsuccessful status code: " + httpResponse.StatusCode.ToString() + "\nWe must shut down since we can't be added to the database");
+                _appLifetime.StopApplication();
+                return;
+            }
+            else if (httpResponse?.IsSuccessStatusCode == true)
+            {
+                _logger.Log(LogLevel.Information, "Successful status code: " + httpResponse.StatusCode.ToString() + "\nHost added to database. HostServicesAPI is now ready for requests!");
+                int id = await HttpContentJsonExtensions.ReadFromJsonAsync<int>(httpResponse.Content);
+                applicationHostModel.Id = id;
             }
 
             
@@ -83,15 +90,16 @@ namespace HostServicesAPI.Objects
         }
 
         // We can return void asynchronously since this is a callback
-        private void OnStopping()
+        private async void OnStopping()
         {
-            // Here we should make sure to shut down all game instances and remove them from the database
+            if(await _gameInstanceCluster.ShutDownAllGameInstances(applicationHostModel.Id))
+            {
+                _logger.Log(LogLevel.Information, "Successfully removed all game instances locally and from db");
+            }
 
 
-
-            // After all game instaces from this host are shutdown and removed from the database, we must remove the host model from the database (must happen after since removing the host model before could result in a rejection since there may be forign keys from Game Instances referenceing it)
-            // Also how do we want to handle cases where removing game instance from database fails? Should we not then remove the host from the database at all since this leaves a possibility the host won't be removed? Should we maybe add to the stored procedure for removing a host to remove all game instances that have forien keys to it? 
-            /*var result = Http.PostAsJson<GameInstanceModel>(@"http://localhost:7071/api/RemoveHostById", newGameInstanceToAdd, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });*/
+            HttpClient client = _clientFactory.CreateClient("MWFHostServicesAPIClient");
+            HttpResponseMessage responseMessage = await client.DeleteAsync(@"http://localhost:7071/api/DeleteHostById/?Id=" + applicationHostModel.Id);
         }
 
 

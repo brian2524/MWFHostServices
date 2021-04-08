@@ -78,12 +78,12 @@ namespace HostServicesAPI.Objects
                     // Should probably call its IDisposable
                 }
             }
-            
+
 
             return new HttpResponseMessage(HttpStatusCode.Conflict);
         }
 
-        public async Task<HttpResponseMessage> ShutDownGameInstance(int inId)
+        public async Task<HttpResponseMessage> ShutDownGameInstanceById(int inId)
         {
             GameInstanceModel modelToRemove = null;
             foreach (GameInstanceModel item in ActiveGameInstances)
@@ -114,6 +114,31 @@ namespace HostServicesAPI.Objects
 
 
             return new HttpResponseMessage(HttpStatusCode.Conflict);
+        }
+
+        public async Task<bool> ShutDownAllGameInstances(int hostId)
+        {
+            HttpClient client = _httpClientFactory.CreateClient("MWFHostServicesAPIClient");
+            HttpResponseMessage responseMessage = await client.DeleteAsync(@"http://localhost:7071/api/DeleteGameInstancesByHostId/?HostId=" + hostId);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                string responseBody = await responseMessage.Content.ReadAsStringAsync();
+                int dbGameInstancesDeleted = int.Parse(responseBody);
+                if (dbGameInstancesDeleted == ActiveGameInstances.Count)
+                {
+
+                }
+            }
+            foreach (GameInstanceModel item in ActiveGameInstances)
+            {
+                Process procToKill = Process.GetProcessById(item.ProcessId);
+
+                procToKill?.Kill();
+                // Should probably call its IDisposable
+            }
+            ActiveGameInstances.Clear();
+
+            return true;
         }
     }
 }
