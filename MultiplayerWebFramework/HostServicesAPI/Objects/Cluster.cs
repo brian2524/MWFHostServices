@@ -34,9 +34,8 @@ namespace HostServicesAPI.Objects
             ActiveGameInstances = new List<GameInstanceModel>();
             _httpClientFactory = httpClientFactory;
         }
-        public async Task<HttpResponseMessage> SpinUpGameInstance(Game game, string port, string args, string filePath)
+        public async Task<HttpResponseMessage> SpinUpGameInstance(Game game, string port, string args, int hostId, string filePath)
         {
-            int hostId = 3;
             Process newProcess = new Process()
             {
                 StartInfo = new ProcessStartInfo()
@@ -115,19 +114,6 @@ namespace HostServicesAPI.Objects
 
 
             return new HttpResponseMessage(HttpStatusCode.Conflict);
-        }
-
-        private static string GetMachineIP()
-        {
-            string localIp;
-            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
-            {
-                socket.Connect("8.8.8.8", 65530);
-                IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
-                localIp = endPoint.Address.ToString();
-            }
-
-            return localIp;
         }
     }
 }

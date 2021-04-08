@@ -73,7 +73,7 @@ namespace HostServicesAPI.Controllers
             {
                 case Game.Game0:
                     {
-                        spinUpResponseMessage = await _gameInstanceCluster.SpinUpGameInstance(reqGameCasted, reqPort, reqArgs, _configuration.GetValue<string>("GameFilePaths:ALSReplicated"));
+                        spinUpResponseMessage = await _gameInstanceCluster.SpinUpGameInstance(reqGameCasted, reqPort, reqArgs, _setupTeardownHostedService.applicationHostModel.Id, _configuration.GetValue<string>("GameFilePaths:ALSReplicated"));
                     }
                     break;
                 case Game.Game1:
