@@ -15,6 +15,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace HostServicesAPI.Objects
 {
@@ -28,9 +29,11 @@ namespace HostServicesAPI.Objects
     {
         public List<GameInstanceModel> ActiveGameInstances { get; set; }
 
+        private readonly ILogger _logger;
         private readonly IHttpClientFactory _httpClientFactory;
-        public Cluster(IHttpClientFactory httpClientFactory)
+        internal Cluster(ILogger<SetupTeardownHostedService> logger, IHttpClientFactory httpClientFactory)
         {
+            _logger = logger;
             ActiveGameInstances = new List<GameInstanceModel>();
             _httpClientFactory = httpClientFactory;
         }
@@ -125,9 +128,10 @@ namespace HostServicesAPI.Objects
             {
                 string responseBody = await responseMessage.Content.ReadAsStringAsync();
                 int dbGameInstancesDeleted = int.Parse(responseBody);
+                _logger.Log(LogLevel.Information, "Local game instance processes to shut down: " + ActiveGameInstances.Count + ". " + dbGameInstancesDeleted + " game instances removed from database");
                 if (dbGameInstancesDeleted == ActiveGameInstances.Count)
                 {
-
+                    _logger.Log(LogLevel.Information, "Same amount!");
                 }
             }
             foreach (GameInstanceModel item in ActiveGameInstances)
