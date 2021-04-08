@@ -83,7 +83,7 @@ namespace HostServicesAPI.Objects
             return new HttpResponseMessage(HttpStatusCode.Conflict);
         }
 
-        public async Task<HttpResponseMessage> ShutDownGameInstance(int inId)
+        public async Task<HttpResponseMessage> ShutDownGameInstanceById(int inId)
         {
             GameInstanceModel modelToRemove = null;
             foreach (GameInstanceModel item in ActiveGameInstances)

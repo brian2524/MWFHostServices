@@ -92,7 +92,7 @@ namespace HostServicesAPI.Controllers
         [HttpDelete("{reqId:int}")]
         public async Task<IActionResult> ShutDownGameInstanceById(int reqId)
         {
-            HttpResponseMessage shutDownResponseMessage = await _gameInstanceCluster.ShutDownGameInstance(reqId);
+            HttpResponseMessage shutDownResponseMessage = await _gameInstanceCluster.ShutDownGameInstanceById(reqId);
 
 
 
