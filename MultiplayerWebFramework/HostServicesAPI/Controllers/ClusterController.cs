@@ -84,7 +84,7 @@ namespace HostServicesAPI.Controllers
                 return new BadRequestObjectResult("Passed in game doesn't exist on this host");
             }
 
-            // Lets work on creating an ObjectResult based off of the cluster's spinup response
+            // Lets work on creating an ObjectResult based off of the cluster's instance spinup response
             ObjectResult retObjResult = StatusCode((int)(spinUpResponseMessage.StatusCode), spinUpResponseMessage.Content);
             return retObjResult;
         }
@@ -97,7 +97,7 @@ namespace HostServicesAPI.Controllers
 
 
 
-            // Lets work on creating an ObjectResult based off of the cluster's spinup response
+            // Lets work on creating an ObjectResult based off of the cluster's instance shutdown response
             ObjectResult retObjResult = StatusCode((int)(shutDownResponseMessage.StatusCode), shutDownResponseMessage.Content);
             return retObjResult;
         }
