@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HostServicesAPI.Interfaces
 {
-    public interface IApplicationHostModel
+    public interface IMWFHostModel
     {
         public HostModel applicationHostModel { get; }
     }

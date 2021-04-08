@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace HostServicesAPI.Objects
 {
-    internal class SetupTeardownHostedService : IHostedService, IApplicationHostModel
+    internal class SetupTeardownHostedService : IHostedService, IMWFHostModel
     {
         private readonly ILogger _logger;
         private readonly IHostApplicationLifetime _appLifetime;
