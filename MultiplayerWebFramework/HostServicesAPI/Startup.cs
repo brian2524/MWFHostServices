@@ -36,13 +36,20 @@ namespace HostServicesAPI
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "HostServicesAPI", Version = "v1" });
             });
 
-
-            services.AddHttpClient("MWFHostServicesAPIClient", client =>
+            services.AddHttpClient("MWFHostServicesAPIClient", client =>                                            // Add HttpClientFactory
             {
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));    // Give us json
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));   // Give us json
             });
 
-            services.AddSingleton<ICluster, Cluster>();
+            // ------------------------------------------------------------
+            // This is how you can make sure only one singleton instance of a concrete class will be made when there are multiple interfaces being implemented
+            services.AddSingleton<SetupTeardownHostedService>();    // First create the single instance
+            // now we need to fill in its dependencies............
+            services.AddSingleton<IHostedService>(x => x.GetRequiredService<SetupTeardownHostedService>());         // Forward requests to our concrete class
+            services.AddSingleton<IApplicationHostModel>(x => x.GetRequiredService<SetupTeardownHostedService>());  // Forward requests to our concrete class
+            // ------------------------------------------------------------
+
+            services.AddSingleton<ICluster, Cluster>();                                                             // Add our custom service
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
