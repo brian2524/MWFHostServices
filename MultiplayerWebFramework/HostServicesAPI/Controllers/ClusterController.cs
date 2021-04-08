@@ -20,13 +20,13 @@ namespace HostServicesAPI.Controllers
         private readonly IConfiguration _configuration;
         private readonly IHttpClientFactory _clientFactory;
         private readonly ICluster _gameInstanceCluster;
-        private readonly IMWFHostModel _setupTeardownHostedService;
-        public ClusterController(IConfiguration Configuration, IHttpClientFactory clientFactory, ICluster gameInstanceCluster, IMWFHostModel setupTeardownHostedService)
+        private readonly IMWFHostModel _MWFHostModel;
+        public ClusterController(IConfiguration Configuration, IHttpClientFactory clientFactory, ICluster gameInstanceCluster, IMWFHostModel MWFHostModel)
         {
             _configuration = Configuration;
             _clientFactory = clientFactory;
             _gameInstanceCluster = gameInstanceCluster;
-            _setupTeardownHostedService = setupTeardownHostedService;
+            _MWFHostModel = MWFHostModel;
 
         }
         [HttpPost]
@@ -73,7 +73,7 @@ namespace HostServicesAPI.Controllers
             {
                 case Game.Game0:
                     {
-                        spinUpResponseMessage = await _gameInstanceCluster.SpinUpGameInstance(reqGameCasted, reqPort, reqArgs, _setupTeardownHostedService.applicationHostModel.Id, _configuration.GetValue<string>("GameFilePaths:ALSReplicated"));
+                        spinUpResponseMessage = await _gameInstanceCluster.SpinUpGameInstance(reqGameCasted, reqPort, reqArgs, _MWFHostModel.applicationHostModel.Id, _configuration.GetValue<string>("GameFilePaths:ALSReplicated"));
                     }
                     break;
                 case Game.Game1:
