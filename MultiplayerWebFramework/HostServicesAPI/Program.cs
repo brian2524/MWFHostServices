@@ -25,6 +25,6 @@ namespace HostServicesAPI
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                }).ConfigureServices(services => services.AddHostedService<SetupTeardownHostedService>());     // Add our IHostedService
+                });     // Add our IHostedService
     }
 }

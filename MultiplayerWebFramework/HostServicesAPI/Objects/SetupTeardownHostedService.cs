@@ -22,8 +22,7 @@ namespace HostServicesAPI.Objects
         private readonly IHttpClientFactory _clientFactory;
         private readonly ICluster _gameInstanceCluster;
 
-        // The Host model from the database that identifies this HostServicesApi application
-        public HostModel applicationHostModel { get; private set; }
+        public HostModel applicationHostModel { get; set; }
 
         public SetupTeardownHostedService(ILogger<SetupTeardownHostedService> logger, IHostApplicationLifetime appLifetime, IHttpClientFactory clientFactory, ICluster gameInstanceCluster)
         {
@@ -35,6 +34,7 @@ namespace HostServicesAPI.Objects
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
+            applicationHostModel = new HostModel { HostIp = GetMachineIP(), HostServicesAPISocketAddress = GetMachineIP(), IsActive = true };
             _appLifetime.ApplicationStarted.Register(OnStarted);
             _appLifetime.ApplicationStopping.Register(OnStopping);
 

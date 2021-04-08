@@ -40,7 +40,15 @@ namespace HostServicesAPI
             {
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));   // Give us json
             });
-            services.AddSingleton<IApplicationHostModel, SetupTeardownHostedService>();                             // Add our custom service
+
+            // ------------------------------------------------------------
+            // This is how you can make sure only one singleton instance of a concrete class will be made when there are multiple interfaces being implemented
+            services.AddSingleton<SetupTeardownHostedService>();    // First create the single instance
+            // now we need to fill in its dependencies............
+            services.AddSingleton<IHostedService>(x => x.GetRequiredService<SetupTeardownHostedService>());         // Forward requests to our concrete class
+            services.AddSingleton<IApplicationHostModel>(x => x.GetRequiredService<SetupTeardownHostedService>());  // Forward requests to our concrete class
+            // ------------------------------------------------------------
+
             services.AddSingleton<ICluster, Cluster>();                                                             // Add our custom service
         }
 
