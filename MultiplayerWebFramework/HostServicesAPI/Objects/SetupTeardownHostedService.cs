@@ -24,6 +24,7 @@ namespace HostServicesAPI.Objects
 
         public HostModel applicationHostModel { get; set; }
 
+        // Injected into ClusterController since injecting into the cluster class causes circular dependency in ICluster service.
         public SetupTeardownHostedService(ILogger<SetupTeardownHostedService> logger, IHostApplicationLifetime appLifetime, IHttpClientFactory clientFactory, ICluster gameInstanceCluster)
         {
             _logger = logger;
