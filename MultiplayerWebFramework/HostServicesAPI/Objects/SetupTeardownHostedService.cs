@@ -92,13 +92,14 @@ namespace HostServicesAPI.Objects
         // We can return void asynchronously since this is a callback
         private async void OnStopping()
         {
-            // Here we should make sure to shut down all game instances and remove them from the database
+            if(await _gameInstanceCluster.ShutDownAllGameInstances(applicationHostModel.Id))
+            {
+                _logger.Log(LogLevel.Information, "Successfully removed all game instances locally and from db");
+            }
 
 
-
-            // After all game instaces from this host are shutdown and removed from the database, we must remove the host model from the database (must happen after since removing the host model before could result in a rejection since there may be forign keys from Game Instances referenceing it)
-            // Also how do we want to handle cases where removing game instance from database fails? Should we not then remove the host from the database at all since this leaves a possibility the host won't be removed? Should we maybe add to the stored procedure for removing a host to remove all game instances that have forien keys to it? 
-            /*var result = Http.PostAsJson<GameInstanceModel>(@"http://localhost:7071/api/RemoveHostById", newGameInstanceToAdd, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });*/
+            HttpClient client = _clientFactory.CreateClient("MWFHostServicesAPIClient");
+            HttpResponseMessage responseMessage = await client.DeleteAsync(@"http://localhost:7071/api/DeleteHostById/?Id=" + applicationHostModel.Id);
         }
 
 

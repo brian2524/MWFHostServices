@@ -88,18 +88,5 @@ namespace HostServicesAPI.Controllers
             ObjectResult retObjResult = StatusCode((int)(spinUpResponseMessage.StatusCode), spinUpResponseMessage.Content);
             return retObjResult;
         }
-
-        [HttpDelete("{reqId:int}")]
-        public async Task<IActionResult> ShutDownGameInstanceById(int reqId)
-        {
-            HttpResponseMessage shutDownResponseMessage = await _gameInstanceCluster.ShutDownGameInstanceById(reqId);
-
-
-
-
-            // Lets work on creating an ObjectResult based off of the cluster's instance shutdown response
-            ObjectResult retObjResult = StatusCode((int)(shutDownResponseMessage.StatusCode), shutDownResponseMessage.Content);
-            return retObjResult;
-        }
     }
 }
