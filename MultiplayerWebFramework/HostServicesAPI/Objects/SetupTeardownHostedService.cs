@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace HostServicesAPI.Objects
 {
-    internal class SetupTeardownHostedService : ISetupTeardownHostedService
+    internal class SetupTeardownHostedService : IHostedService, IApplicationHostModel
     {
         private readonly ILogger _logger;
         private readonly IHostApplicationLifetime _appLifetime;

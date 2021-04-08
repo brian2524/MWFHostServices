@@ -20,11 +20,14 @@ namespace HostServicesAPI.Controllers
         private readonly IConfiguration _configuration;
         private readonly IHttpClientFactory _clientFactory;
         private readonly ICluster _gameInstanceCluster;
-        public ClusterController(IConfiguration Configuration, IHttpClientFactory clientFactory, ICluster gameInstanceCluster)
+        private readonly IApplicationHostModel _setupTeardownHostedService;
+        public ClusterController(IConfiguration Configuration, IHttpClientFactory clientFactory, ICluster gameInstanceCluster, IApplicationHostModel setupTeardownHostedService)
         {
             _configuration = Configuration;
             _clientFactory = clientFactory;
             _gameInstanceCluster = gameInstanceCluster;
+            _setupTeardownHostedService = setupTeardownHostedService;
+
         }
         [HttpPost]
         public async Task<IActionResult> SpinUpGameInstance([FromBody] JsonElement req)

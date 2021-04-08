@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HostServicesAPI.Interfaces
 {
-    interface ISetupTeardownHostedService : IHostedService
+    public interface IApplicationHostModel
     {
         public HostModel applicationHostModel { get; }
     }

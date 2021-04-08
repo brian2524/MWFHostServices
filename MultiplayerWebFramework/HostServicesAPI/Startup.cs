@@ -36,11 +36,12 @@ namespace HostServicesAPI
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "HostServicesAPI", Version = "v1" });
             });
 
-            services.AddHttpClient("MWFHostServicesAPIClient", client =>                                             // Add HttpClientFactory
+            services.AddHttpClient("MWFHostServicesAPIClient", client =>                                            // Add HttpClientFactory
             {
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));    // Give us json
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));   // Give us json
             });
-            services.AddSingleton<ICluster, Cluster>();                                                              // Add our custom service
+            services.AddSingleton<IApplicationHostModel, SetupTeardownHostedService>();                             // Add our custom service
+            services.AddSingleton<ICluster, Cluster>();                                                             // Add our custom service
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
