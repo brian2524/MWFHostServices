@@ -49,7 +49,13 @@ namespace HostServicesAPI.Objects
         // We can return void asynchronously since this is a callback
         private async void OnStarted()
         {
-            applicationHostModel = new HostModel { HostIp = GetMachineIP(), HostServicesAPISocketAddress = GetMachineIP(), IsActive = true };
+            string machineIp = GetMachineIP();
+            applicationHostModel = new HostModel 
+            {
+                HostIp = machineIp,
+                HostServicesAPISocketAddress = machineIp,
+                IsActive = true 
+            };
 
             HttpResponseMessage httpResponse = null;
             try
@@ -62,20 +68,20 @@ namespace HostServicesAPI.Objects
             {
                 _logger.Log(LogLevel.Critical, e, "We must shut down since we can't be added to the database");
                 _appLifetime.StopApplication();
+                return;
             }
-            finally
+               
+            if (httpResponse?.IsSuccessStatusCode == false)
             {
-                if (httpResponse?.IsSuccessStatusCode == false)
-                {
-                    _logger.Log(LogLevel.Critical, "Unsuccessful status code: " + httpResponse.StatusCode.ToString() + "\nWe must shut down since we can't be added to the database");
-                    _appLifetime.StopApplication();
-                }
-                else if (httpResponse?.IsSuccessStatusCode == true)
-                {
-                    _logger.Log(LogLevel.Information, "Successful status code: " + httpResponse.StatusCode.ToString() + "\nHost added to database! API is now ready for requests!");
-                    int id = await HttpContentJsonExtensions.ReadFromJsonAsync<int>(httpResponse.Content);
-                    applicationHostModel.Id = id;
-                }
+                _logger.Log(LogLevel.Critical, "Unsuccessful status code: " + httpResponse.StatusCode.ToString() + "\nWe must shut down since we can't be added to the database");
+                _appLifetime.StopApplication();
+                return;
+            }
+            else if (httpResponse?.IsSuccessStatusCode == true)
+            {
+                _logger.Log(LogLevel.Information, "Successful status code: " + httpResponse.StatusCode.ToString() + "\nHost added to database. HostServicesAPI is now ready for requests!");
+                int id = await HttpContentJsonExtensions.ReadFromJsonAsync<int>(httpResponse.Content);
+                applicationHostModel.Id = id;
             }
 
             
@@ -83,7 +89,7 @@ namespace HostServicesAPI.Objects
         }
 
         // We can return void asynchronously since this is a callback
-        private void OnStopping()
+        private async void OnStopping()
         {
             // Here we should make sure to shut down all game instances and remove them from the database
 
