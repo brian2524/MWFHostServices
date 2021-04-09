@@ -63,7 +63,7 @@ namespace HostServicesAPI.Objects
             {
                 _logger.Log(LogLevel.Information, "Attempting to register us with the database (creating db host entry)");
                 HttpClient client = _clientFactory.CreateClient("MWFHostServicesAPIClient");
-                httpResponse = await client.PostAsJsonAsync<HostModel>(@"http://localhost:7071/api/CreateHostAndReturnId", applicationHostModel, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+                httpResponse = await client.PostAsJsonAsync<HostModel>(@"CreateHostAndReturnId", applicationHostModel, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
             }
             catch (Exception e)
             {
@@ -99,7 +99,7 @@ namespace HostServicesAPI.Objects
 
 
             HttpClient client = _clientFactory.CreateClient("MWFHostServicesAPIClient");
-            HttpResponseMessage responseMessage = await client.DeleteAsync(@"http://localhost:7071/api/DeleteHostById/?Id=" + applicationHostModel.Id);
+            HttpResponseMessage responseMessage = await client.DeleteAsync(@"DeleteHostById/?Id=" + applicationHostModel.Id);
         }
 
 

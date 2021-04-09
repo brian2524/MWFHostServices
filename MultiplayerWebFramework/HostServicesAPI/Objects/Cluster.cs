@@ -57,7 +57,7 @@ namespace HostServicesAPI.Objects
                 ActiveGameInstances.Add(newGameInstanceModel);
 
                 HttpClient client = _httpClientFactory.CreateClient("MWFHostServicesAPIClient");
-                HttpResponseMessage responseMessage = await client.PostAsJsonAsync(@"http://localhost:7071/api/CreateGameInstanceAndReturnId", new { ProcessId = newGameInstanceModel.ProcessId, Game = (int)game, Port = port, Args = args, HostId = hostId }, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+                HttpResponseMessage responseMessage = await client.PostAsJsonAsync(@"CreateGameInstanceAndReturnId", new { ProcessId = newGameInstanceModel.ProcessId, Game = (int)game, Port = port, Args = args, HostId = hostId }, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
                 if (responseMessage.IsSuccessStatusCode)
                 {
                     // Finish setting new game instance model's fields now that we know it was added to the db
@@ -100,7 +100,7 @@ namespace HostServicesAPI.Objects
             }
 
             HttpClient client = _httpClientFactory.CreateClient("MWFHostServicesAPIClient");
-            HttpResponseMessage responseMessage = await client.DeleteAsync(@"http://localhost:7071/api/DeleteGameInstanceById/?Id=" + inId);
+            HttpResponseMessage responseMessage = await client.DeleteAsync(@"DeleteGameInstanceById/?Id=" + inId);
             if (responseMessage.IsSuccessStatusCode)
             {
                 // Removed from db, so lets remove and shut it down locally
@@ -119,7 +119,7 @@ namespace HostServicesAPI.Objects
         public async Task<bool> ShutDownAllGameInstances(int hostId)
         {
             HttpClient client = _httpClientFactory.CreateClient("MWFHostServicesAPIClient");
-            HttpResponseMessage responseMessage = await client.DeleteAsync(@"http://localhost:7071/api/DeleteGameInstancesByHostId/?HostId=" + hostId);
+            HttpResponseMessage responseMessage = await client.DeleteAsync(@"DeleteGameInstancesByHostId/?HostId=" + hostId);
             if (responseMessage.IsSuccessStatusCode)
             {
                 string responseBody = await responseMessage.Content.ReadAsStringAsync();

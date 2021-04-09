@@ -44,7 +44,9 @@ namespace HostServicesAPI
 
             services.AddHttpClient("MWFHostServicesAPIClient", client =>                                            // Add HttpClientFactory
             {
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));   // Give us json
+                client.BaseAddress = new Uri(@"http://localhost:7071/api/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(@"application/json"));    // Just give us json (we are not looking for a web page or anything)
             });
 
             // ------------------------------------------------------------
