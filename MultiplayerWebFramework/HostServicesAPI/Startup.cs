@@ -1,5 +1,6 @@
 using HostServicesAPI.Interfaces;
 using HostServicesAPI.Objects;
+using Microsoft.AspNetCore.Authentication.Certificate;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -29,6 +30,8 @@ namespace HostServicesAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme).AddCertificate();    // Add this service to avoid net::ERR_CERT_AUTHORITY_INVALID error when calling on this web api
+
             services.AddCors();
 
 
@@ -63,6 +66,9 @@ namespace HostServicesAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime hostApplicationLifetime)
         {
+            app.UseAuthentication();        // This will set the HttpContext.User to be set to ClaimsPrincipal avoids net::ERR_CERT_AUTHORITY_INVALID error when calling on this web api
+
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
