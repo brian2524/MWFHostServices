@@ -83,7 +83,8 @@ namespace HostServicesAPI
             app.UseCors(builder => builder
      .AllowAnyOrigin()
      .AllowAnyMethod()
-     .AllowAnyHeader());
+     .AllowAnyHeader()
+     .AllowCredentials());
 
             app.UseAuthorization();
 
